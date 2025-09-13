@@ -3,3 +3,5 @@ db.php
 
 # アップロードされたファイル
 uploads/
+
+.vscode/
