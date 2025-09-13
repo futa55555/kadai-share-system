@@ -8,5 +8,5 @@
 session_start();
 session_destroy();
 
-header("Location: ../../public/pages/index.php");
+header("Location: ../../public/pages/log_out.php");
 exit;
