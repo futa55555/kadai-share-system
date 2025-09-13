@@ -31,7 +31,7 @@ async function loadKadaiDetail() {
                 const a = document.createElement("a");
                 a.href = `../../show_file.php?type=kadai&file=${encodeURIComponent(kd.error_file)}`;
                 a.target = "_blank";
-                a.textContent = `エラーファイル: ${kd.error_file.split('/').pop()}`; // ファイル名のみ表示
+                a.textContent = `${kd.error_file.split('/').pop()}`; // ファイル名のみ表示
                 li.appendChild(a);
                 detail.appendChild(li);
             }

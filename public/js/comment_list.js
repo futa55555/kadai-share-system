@@ -13,22 +13,44 @@ async function loadComments() {
 
         if (json.status === "success") {
             const list = document.getElementById("comment-list");
-            list.innerHTML = "";
+            list.innerHTML = "<h2>コメント一覧</h2>";
 
             json.data.forEach(comment => {
-                const li = document.createElement("li");
-                li.innerHTML = `
-                    コメントID: ${comment.comment_id}<br>
-                    ユーザー: ${comment.username}<br>
-                    内容: ${comment.content}<br>
-                    ${comment.resolve_file
-                        ? `<a href="../../show_file.php?type=comment&file=${encodeURIComponent(comment.resolve_file)}" target="_blank">
-                               添付ファイル: ${comment.resolve_file.split('/').pop()}
-                           </a>`
-                        : "添付なし"}<br>
-                    投稿日時: ${comment.created_at}
-                `;
-                list.appendChild(li);
+                const card = document.createElement("div");
+                card.classList.add("comment-card");
+                card.classList.add(`${comment.comment_type}`);
+
+                const user = document.createElement("p");
+                user.classList.add("comment-user");
+                user.textContent = comment.username;
+                card.appendChild(user);
+
+                const content = document.createElement("p");
+                content.classList.add("comment-content");
+                content.textContent = comment.content;
+                card.appendChild(content);
+
+                const commentFile = document.createElement("p");
+                commentFile.classList.add("comment-commentFile");
+
+                if (comment.comment_file && comment.comment_file.trim() !== "") {
+                    const link = document.createElement("a");
+                    link.href = `../../show_file.php?type=comment&file=${encodeURIComponent(comment.comment_file)}`;
+                    link.target = "_blank";
+                    link.textContent = `${comment.comment_file.split('/').pop()}`;
+                    commentFile.appendChild(link);
+                } else {
+                    commentFile.textContent = "添付なし"
+                }
+
+                card.appendChild(commentFile);
+
+                const createdAt = document.createElement("p");
+                createdAt.classList.add("comment-createdAt");
+                createdAt.textContent = comment.created_at;
+                card.appendChild(createdAt);
+
+                list.appendChild(card);
             });
         } else {
             console.error("API error:", json.message);

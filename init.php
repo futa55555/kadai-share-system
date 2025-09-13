@@ -33,7 +33,7 @@ $queries = [
                 problem TEXT,
                 error_file TEXT,
                 resolve_state VARCHAR(200),
-                created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+                created_at DATETIME NOT NULL
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
         SQL,
     <<<SQL
@@ -44,9 +44,10 @@ $queries = [
                 comment_id INT AUTO_INCREMENT PRIMARY KEY,
                 username VARCHAR(50),
                 kadai_id INT NOT NULL,
-                solution TEXT,
-                solution_file TEXT,
-                created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+                comment_type ENUM('solution', 'empathy') NOT NULL,
+                content TEXT,
+                comment_file TEXT,
+                created_at DATETIME NOT NULL
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
         SQL
 ]

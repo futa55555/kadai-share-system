@@ -69,16 +69,17 @@ genreSelect.addEventListener("change", function () {
     updateDetailOptions(this.value, null);
 });
 
-const solveState = document.getElementById("solve-state");
+const resolveState = document.getElementById("resolve-state");
 
 const commentBox = document.getElementById("comment-box");
 
-toggleCommentBox(solveState.value);
+toggleCommentBox(resolveState.value);
 
-solveState.addEventListener("change", function () {
+resolveState.addEventListener("change", function () {
     toggleCommentBox(this.value);
 });
 
 function toggleCommentBox(state) {
+    if (!commentBox) return;
     commentBox.style.display = (state === "resolved") ? "block" : "none";
 }

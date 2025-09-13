@@ -12,6 +12,7 @@ require '../../includes/db.php';
 session_start();
 
 $username = $_SESSION["username"] ?? "";
+$kadai_id = $_GET["kadai_id"] ?? null;
 
 
 // コメント処理
@@ -19,10 +20,9 @@ $comment_post_message = "";
 $post_success = false;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $kadai_id = $_GET["kadai_id"] ?? null;
-
-    $solution = trim($_POST["solution"]);
-    $solution_code = $_POST["solution"];
+    $comment_type = $_POST["comment_type"];
+    $content = trim($_POST["content"]);
+    $comment_code = trim($_POST["comment_code"]);
 
 
     // ログインチェック
@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // 未入力チェック
     if (!$kadai_id || !is_numeric($kadai_id)) {
         $comment_post_message = "課題が指定されていません。";
-    } elseif ($solution === "") {
+    } elseif ($content === "") {
         $comment_post_message = "「コメント」を入力してください。";
     }
 
@@ -47,16 +47,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             (
                 username,
                 kadai_id,
-                solution,
-                solution_file,
+                comment_type,
+                content,
+                comment_file,
                 created_at
             )
             VALUES
             (
                 :username,
                 :kadai_id,
-                :solution,
-                :solution_file,
+                :comment_type,
+                :content,
+                :comment_file,
                 :created_at
             )
         SQL;
@@ -64,15 +66,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         date_default_timezone_set('Asia/Tokyo');
         $date = date('Y-m-d H:i:s');
 
-        $solution_file = "uploads/comments/" . $username . "-comment-" . date("dHis", $now) . ".txt";
-        file_put_contents($solution_file, $solution_code);
+        if ($comment_code !== "") {
+            $comment_file = "uploads/comments/" . $username . "-comment-" . date("dHis", $now) . ".txt";
+            file_put_contents($comment_file, $comment_code);
+        }
 
         $stmt = $pdo->prepare($sql_insert_comment);
         $post_success = $stmt->execute([
-            "user_name" => $useranem,
+            "username" => $username,
             "kadai_id" => $kadai_id,
-            "solution" => $solution,
-            "solution_file" => $solution_file,
+            "comment_type" => $comment_type,
+            "content" => $content,
+            "comment_file" => $comment_file,
             "created_at" => $date
         ]);
 
@@ -87,14 +92,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // セッションに登録
     if (!$post_success) {
-        $_SESSION["solution"] = $solution;
-        $_SESSION["solution_code"] = $solution_code;
+        $_SESSION["comment_type"] = $comment_type;
+        $_SESSION["content"] = $content;
+        $_SESSION["comment_code"] = $comment_code;
 
         $_SESSION["comment_post_message"] = $comment_post_message;
     }
 
 
     // 然るべきページに遷移
-    header("Location ../../public/pages/kadai_detail.php?kadai_id=" . $kadai_id);
+    header("Location: ../../public/pages/kadai_detail.php?kadai_id=" . $kadai_id);
     exit;
 }

@@ -16,7 +16,11 @@ if (!$kadai_id || !is_numeric($kadai_id)) {
 try {
     $sql_get_comment_list = <<<SQL
         SELECT
-            comment_id
+            username,
+            comment_type,
+            content,
+            comment_file,
+            created_at
         FROM
             comment
         WHERE

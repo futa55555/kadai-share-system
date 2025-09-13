@@ -19,18 +19,19 @@ CREATE TABLE kadai (
     goal VARCHAR(200) NOT NULL,
     problem TEXT NOT NULL,
     error_file TEXT,
-    resolve_state VARCHAR(200),
-    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    resolve_state VARCHAR(20),
+    created_at DATETIME NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 -- ==========================
--- コメントテーブル
+-- 解決策テーブル
 -- ==========================
 DROP TABLE IF EXISTS comment;
 CREATE TABLE comment (
     comment_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
     kadai_id INT NOT NULL,
-    solution TEXT NOT NULL,
-    solution_file TEXT,
-    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    comment_type ENUM('solution', 'empathy') NOT NULL,
+    content TEXT NOT NULL,
+    comment_file TEXT,
+    created_at DATETIME NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;

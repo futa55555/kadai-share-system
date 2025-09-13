@@ -11,14 +11,16 @@ $kadai_id = $_GET["kadai_id"];
 session_start();
 
 $username = $_SESSION["username"] ?? "";
-$solution = $_SESSION["solution"] ?? "";
-$solution_code = $_SESSION["solution_code"] ?? "";
+$comment_type = $_SESSION["comment_type"] ?? "";
+$content = $_SESSION["content"] ?? "";
+$comment_code = $_SESSION["comment_code"] ?? "";
 
 $comment_post_message = $_SESSION["comment_post_message"] ?? "";
 
 unset(
-    $_SESSION["solution"],
-    $_SESSION["solution_code"],
+    $_SESSION["comment_type"],
+    $_SESSION["content"],
+    $_SESSION["comment_code"],
 
     $_SESSION["comment_post_message"]
 );
@@ -59,9 +61,7 @@ unset(
 
     <hr />
 
-    <div class="comment-list">
-        <ul id="comment-list"></ul>
-    </div>
+    <div class="comment-list" id="comment-list"></div>
 
     <?php if ($username): ?>
         <?php if ($comment_post_message !== ""): ?>
@@ -70,8 +70,17 @@ unset(
 
         <div class="comment-post">
             <form action="../../handlers/posts/kadai_detail.php?kadai_id=<?= htmlspecialchars($kadai_id); ?>" method="post">
-                コメント：<textarea name="content"><?= htmlspecialchars($solution); ?></textarea><br />
-                添付ファイル：<textarea name="resolve_file"><?= htmlspecialchars($solution_code); ?></textarea>
+                種類：
+                <select name="comment_type" id="comment-type">
+                    <option value="solution" <?= ($comment_type === 'solution') ? 'selected' : ''; ?>>解決策</option>
+                    <option value="empathy" <?= ($comment_type === 'empathy') ? 'selected' : ''; ?>>共感</option>
+                </select>
+                <br />
+
+                コメント：
+                <textarea name="content"><?= htmlspecialchars($content); ?></textarea><br />
+                添付ファイル：
+                <textarea name="comment_code"><?= htmlspecialchars($comment_code); ?></textarea>
                 <input type="submit" name="submit">
             </form>
         </div>

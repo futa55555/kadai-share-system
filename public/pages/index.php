@@ -45,9 +45,7 @@ $username = $_SESSION["username"] ?? "";
 
     <hr />
 
-    <div class="kadai-list" id="kadai-list">
-        <h2>Kadai list</h2>
-    </div>
+    <div class="kadai-list" id="kadai-list"></div>
 </body>
 
 </html>

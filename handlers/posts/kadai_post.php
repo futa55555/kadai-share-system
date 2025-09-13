@@ -26,8 +26,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $problem = trim($_POST["problem"]);
     $error_code = trim($_POST["error_code"]);
     $resolve_state = $_POST["resolve_state"];
-    $solution = trim($_POST["solution"]);
-    $solution_code = trim($_POST["solution_code"]);
+    $content = trim($_POST["content"]);
+    $comment_code = trim($_POST["comment_code"]);
 
 
     // ログインチェック
@@ -50,8 +50,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
     // 未入力チェック（解決済み）
-    // solution_codeは空でもいい
-    elseif ($resolve_state === "resolved" && $solution === "") {
+    // comment_codeは空でもいい
+    elseif ($resolve_state === "resolved" && $content === "") {
         $comment_post_message = "解決済みの場合、「解決策」を入力してください。";
     }
 
@@ -120,16 +120,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     (
                         username,
                         kadai_id,
-                        solution,
-                        solution_file,
+                        comment_type,
+                        content,
+                        comment_file,
                         created_at
                     )
                     VALUES
                     (
                         :username,
                         :kadai_id,
-                        :solution,
-                        :solution_file,
+                        'solution',
+                        :content,
+                        :comment_file,
                         :created_at
                     )
                     ;
@@ -153,17 +155,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 ]);
                 $kadai_id = $stmt->fetchColumn();
 
-                if ($solution_code !== "") {
-                    $solution_file = "uploads/comments/" . $username . "-kadai-" . date("dHis", $now) . ".txt";
-                    file_put_contents($solution_file, $solution_code);
+                if ($comment_code !== "") {
+                    $comment_file = "uploads/comments/" . $username . "-kadai-" . date("dHis", $now) . ".txt";
+                    file_put_contents($comment_file, $comment_code);
                 }
 
                 $stmt = $pdo->prepare($sql_insert_comment);
                 $comment_post_success = $stmt->execute([
                     "username" => $username,
                     "kadai_id" => $kadai_id,
-                    "solution" => $solution,
-                    "solution_file" => $solution_file,
+                    "content" => $content,
+                    "comment_file" => $comment_file,
                     "created_at" => $date
                 ]);
 
@@ -185,8 +187,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION["problem"] = $problem;
         $_SESSION["error_code"] = $error_code;
         $_SESSION["resolve_state"] = $resolve_state;
-        $_SESSION["solution"] = $solution;
-        $_SESSION["solution_code"] = $solution_code;
+        $_SESSION["content"] = $content;
+        $_SESSION["comment_code"] = $comment_code;
 
         $_SESSION["kadai_post_message"] = $kadai_post_message;
         $_SESSION["comment_post_message"] = $comment_post_message;
