@@ -100,6 +100,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // セッションに登録
     if (!$credential_success) {
         $_SESSION["old_input_username"] = $input_username;
+    } else {
+        $_SESSION["username"] = $input_username;
     }
     $_SESSION["credential_message"] = $credential_message;
 

@@ -20,6 +20,7 @@ $username = $_SESSION["username"] ?? "";
     <meta charset="UTF-8">
     <title>課題一覧ページ</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/index.css">
     <script src="../js/kadai_list.js" defer></script>
 </head>
 
@@ -44,9 +45,8 @@ $username = $_SESSION["username"] ?? "";
 
     <hr />
 
-    <div class="kadai-list">
-        Kadai list<br />
-        <ul id="kadai-list"></ul>
+    <div class="kadai-list" id="kadai-list">
+        <h2>Kadai list</h2>
     </div>
 </body>
 

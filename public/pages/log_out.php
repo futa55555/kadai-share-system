@@ -20,6 +20,7 @@ $username = $_SESSION["username"] ?? "";
     <meta charset="UTF-8">
     <title>ログアウトページ</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/log_out.css">
 </head>
 
 <body>

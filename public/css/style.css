@@ -101,3 +101,33 @@ tr:nth-child(even) {
     border-radius: 4px;
     background-color: #ecf0f1;
 }
+
+
+
+.kadai-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 12px 0;
+    background-color: #fafafa;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.kadai-card h3 {
+    margin: 0 0 8px;
+}
+
+.kadai-card p {
+    margin: 4px 0;
+}
+
+.kadai-card a {
+    display: inline-block;
+    margin-top: 8px;
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.kadai-card a:hover {
+    text-decoration: underline;
+}

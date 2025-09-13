@@ -27,6 +27,7 @@ unset(
     <meta charset="UTF-8">
     <title>サインアップページ</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/sign_up.css">
     <script src="../js/user_list.js" defer></script>
 </head>
 

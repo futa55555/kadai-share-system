@@ -31,6 +31,7 @@ unset(
     <meta charset="UTF-8">
     <title>課題詳細ページ</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/kadai_detail.css">
     <script src="../js/kadai_detail.js" defer></script>
     <script src="../js/comment_list.js" defer></script>
 </head>

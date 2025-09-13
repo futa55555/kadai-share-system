@@ -11,7 +11,14 @@ require '../../includes/response.php';
 try {
     $sql_get_kadai_list = <<<SQL
         SELECT
-            kadai_id
+            kadai_id,
+            username,
+            mission_genre,
+            mission_detail,
+            goal,
+            problem,
+            resolve_state,
+            created_at
         FROM
             kadai
         ;

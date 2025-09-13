@@ -45,6 +45,7 @@ unset(
     <meta charset="UTF-8">
     <title>課題投稿ページ</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/kadai_post.css">
     <script src="../js/kadai_post.js" defer></script>
 </head>
 

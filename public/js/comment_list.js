@@ -8,7 +8,7 @@ async function loadComments() {
         const detailEl = document.getElementById("kadai-id");
         const kadaiId = detailEl.dataset.kadaiId;
 
-        const res = await fetch(`./../handlers/api/comment_list.php?kadai_id=${kadaiId}`);
+        const res = await fetch(`../../handlers/api/comment_list.php?kadai_id=${kadaiId}`);
         const json = await res.json();
 
         if (json.status === "success") {
@@ -22,7 +22,7 @@ async function loadComments() {
                     ユーザー: ${comment.username}<br>
                     内容: ${comment.content}<br>
                     ${comment.resolve_file
-                        ? `<a href="../../show_file.php?file=${encodeURIComponent(comment.resolve_file)}" target="_blank">
+                        ? `<a href="../../show_file.php?type=comment&file=${encodeURIComponent(comment.resolve_file)}" target="_blank">
                                添付ファイル: ${comment.resolve_file.split('/').pop()}
                            </a>`
                         : "添付なし"}<br>
