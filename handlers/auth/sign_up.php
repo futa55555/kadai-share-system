@@ -27,17 +27,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // 未入力チェック
     // ともに未入力の場合、username未入力を出す
     if ($input_username === "") {
-        $credential_message = "Please input username!";
+        $credential_message = "ユーザー名を入力してください。";
     } elseif ($input_password === "") {
-        $_SESSION["old_input_username"] = $input_username;
-        $credential_message = "Please input password!";
+        $credential_message = "パスワードを入力してください。";
     }
 
 
     // usernameは空白文字の仕様を禁止
     elseif (preg_match('/^\s+$/', $input_username)) {
-        $_SESSION["old_input_username"] = $input_username;
-        $credential_message = "You can't use whitespaces for your username.";
+        $credential_message = "ユーザー名に空白文字は使えません。";
     }
 
 
@@ -60,8 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $db_password_hash = $stmt->fetchColumn();
 
         if ($db_password_hash) {
-            $_SESSION["old_input_username"] = $input_username;
-            $credential_message = "Username: " . $input_username . " is already used.";
+            $credential_message = "ユーザー名：" . $input_username . "は既に使用されています。";
         }
 
 
@@ -91,18 +88,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             ]);
 
             if (!$success) {
-                $_SESSION["old_input_username"] = $input_username;
-                $credential_message = "Insert failed!";
+                $credential_message = "サインアップに失敗しました。";
             } else {
-                $_SESSION["username"] = $input_username;
-                $credential_message = "Sign-up success!";
+                $credential_message = "サインアップ成功！";
                 $credential_success = true;
             }
         }
     }
 
 
-    // セッションにログインメッセージを登録
+    // セッションに登録
+    if (!$credential_success) {
+        $_SESSION["old_input_username"] = $input_username;
+    }
     $_SESSION["credential_message"] = $credential_message;
 
 

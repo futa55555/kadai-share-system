@@ -38,16 +38,17 @@ unset(
     </h1>
 
     <?php if ($username): ?>
-        You're logged in as <?= $username; ?>.<br />
+        <p><?= htmlspecialchars($username); ?>としてログインしています。</p>
+        <p>ログアウトは<a href="../../handlers/auth/log_out.php">こちら</a></p>
     <?php else: ?>
-        You're not logged in.<br />
-        You can return to <a href="log_in.php">log-in page</a>.<br />
+        <p>ログインしていません。</p>
+        <p>ログインは<a href="log_in.php">こちら</a></p>
     <?php endif ?>
 
     <hr />
 
     <form action="../../handlers/auth/sign_up.php" method="post">
-        ユーザー名：<input type="text" name="username" autocomplete="username" value=<?= htmlspecialchars($old_input_username); ?>><br />
+        ユーザー名：<input type="text" name="username" autocomplete="username" value="<?= htmlspecialchars($old_input_username); ?>"><br />
         パスワード：<input type="password" name="password" autocomplete="new-password"><br />
         <input type="submit" name="submit" value="サインアップ">
     </form>
@@ -57,7 +58,7 @@ unset(
     <hr />
 
     <div class="account-list">
-        Account list<br />
+        <p><strong>Account list</strong></p>
         <ul id="user-list"></ul>
     </div>
 </body>

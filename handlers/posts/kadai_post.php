@@ -24,29 +24,35 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $mission_detail = $_POST["mission_detail"];
     $goal = trim($_POST["goal"]);
     $problem = trim($_POST["problem"]);
-    $error_code = $_POST["error_code"];
+    $error_code = trim($_POST["error_code"]);
     $resolve_state = $_POST["resolve_state"];
     $solution = trim($_POST["solution"]);
-    $solution_code = $_POST["solution_code"];
+    $solution_code = trim($_POST["solution_code"]);
+
+
+    // ログインチェック
+    if ($username === "") {
+        $kadai_post_message = "ログインしていません。";
+    }
 
 
     // 未入力チェック（未解決）
     // error_codeは空でもいい
-    if ($mission_genre === "") {
-        $kadai_post_message = "Mission_genre is empty.";
+    elseif ($mission_genre === "") {
+        $kadai_post_message = "ミッションの大分類を入力してください。";
     } elseif ($mission_detail === "") {
-        $kadai_post_message = "Mission_detail is empty.";
+        $kadai_post_message = "ミッションの小分類を入力してください";
     } elseif ($goal === "") {
-        $kadai_post_message = "Goal is empty.";
+        $kadai_post_message = "「やりたいこと」を入力してください。";
     } elseif ($problem === "") {
-        $kadai_post_message = "Problem is empty.";
+        $kadai_post_message = "「問題点」を入力してください。";
     }
 
 
     // 未入力チェック（解決済み）
     // solution_codeは空でもいい
     elseif ($resolve_state === "resolved" && $solution === "") {
-        $comment_post_message = "Solution is empty.";
+        $comment_post_message = "解決済みの場合、「解決策」を入力してください。";
     }
 
 
@@ -82,8 +88,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         date_default_timezone_set('Asia/Tokyo');
         $date = date('Y-m-d H:i:s');
 
-        $error_file = "uploads/kadais/" . $username . "-kadai-" . date("dHis", $now) . ".txt";
-        file_put_contents($error_file, $error_code);
+        if ($error_code !== "") {
+            $error_file = "uploads/kadais/" . $username . "-kadai-" . date("dHis", $now) . ".txt";
+            file_put_contents($error_file, $error_code);
+        }
 
         $stmt = $pdo->prepare($sql_insert_kadai);
         $kadai_post_success = $stmt->execute([
@@ -98,9 +106,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         ]);
 
         if (!$kadai_post_success) {
-            $kadai_post_message = "Kadai post failed!";
+            $kadai_post_message = "課題の投稿に失敗しました。";
         } else {
-            $kadai_post_message = "Kadai post success!";
+            $kadai_post_message = "課題投稿成功！";
             $post_success = true;
 
 
@@ -145,8 +153,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 ]);
                 $kadai_id = $stmt->fetchColumn();
 
-                $solution_file = "uploads/comments/" . $username . "-kadai-" . date("dHis", $now) . ".txt";
-                file_put_contents($solution_file, $solution_code);
+                if ($solution_code !== "") {
+                    $solution_file = "uploads/comments/" . $username . "-kadai-" . date("dHis", $now) . ".txt";
+                    file_put_contents($solution_file, $solution_code);
+                }
 
                 $stmt = $pdo->prepare($sql_insert_comment);
                 $comment_post_success = $stmt->execute([
@@ -158,9 +168,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 ]);
 
                 if (!$comment_post_success) {
-                    $comment_post_message = "Comment post failed!";
+                    $comment_post_message = "コメントの投稿に失敗しました。";
                 } else {
-                    $comment_post_message = "Comment post success";
+                    $comment_post_message = "コメント投稿成功！";
                 }
             }
         }

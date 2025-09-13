@@ -25,11 +25,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $solution_code = $_POST["solution"];
 
 
+    // ログインチェック
+    if ($username === "") {
+        $kadai_post_message = "ログインしていません。";
+    }
+
+
     // 未入力チェック
     if (!$kadai_id || !is_numeric($kadai_id)) {
-        $comment_post_message = "Invalid kadai_id.";
+        $comment_post_message = "課題が指定されていません。";
     } elseif ($solution === "") {
-        $comment_post_message = "Solution is empty.";
+        $comment_post_message = "「コメント」を入力してください。";
     }
 
 
@@ -71,9 +77,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         ]);
 
         if (!$post_success) {
-            $comment_post_message = "Comment post failed!";
+            $comment_post_message = "コメントの投稿に失敗しました。";
         } else {
-            $comment_post_message = "Comment post success!";
+            $comment_post_message = "コメント投稿成功！";
             $post_success = true;
         }
     }

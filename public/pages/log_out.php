@@ -32,10 +32,11 @@ $username = $_SESSION["username"] ?? "";
 </h1>
 
 <?php if ($username): ?>
-    正常にログアウトできませんでした。<br />
-    <a href="../../handlers/auth/log_out.php">もう一度試す</a><br />
+    <p>正常にログアウトできませんでした。</p>
+    <p><a href="../../handlers/auth/log_out.php">もう一度試す</a></p>
 <?php else: ?>
-    正常にログアウトできました。<br />
+    <p>正常にログアウトできました。</p>
+    <p><a href="log_in.php">再びログインする</a></p>
 <?php endif ?>
 
 </html>

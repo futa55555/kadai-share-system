@@ -7,7 +7,6 @@
 
 $kadai_id = $_GET["kadai_id"];
 
-
 // セッション情報
 session_start();
 
@@ -44,37 +43,39 @@ unset(
     </h1>
 
     <?php if ($username): ?>
-        You're logged in as <?= $username ?>.<br />
-        If you wanna log out, click <a href="../../handlers/auth/log_out.php">here</a>.<br />
+        <p><?= htmlspecialchars($username); ?>としてログインしています。</p>
+        <p>ログアウトは<a href="../../handlers/auth/log_out.php">こちら</a></p>
     <?php else: ?>
-        You're not logged in.<br />
-        If you wanna log in, click <a href="log_in.php">here</a>.<br />
+        <p>ログインしていません。</p>
+        <p>ログインは<a href="log_in.php">こちら</a></p>
     <?php endif ?>
 
     <hr />
 
-    <div class="kadai_detail">
+    <div class="kadai-detail">
         <ul id="kadai-detail"></ul>
     </div>
 
     <hr />
 
-    <div class="comment_list">
+    <div class="comment-list">
         <ul id="comment-list"></ul>
     </div>
 
     <?php if ($username): ?>
         <?php if ($comment_post_message !== ""): ?>
-            <?= $comment_post_message; ?><br />
+            <?= htmlspecialchars($comment_post_message); ?><br />
         <?php endif ?>
 
         <div class="comment-post">
-            <form action="../../handlers/posts/kadai_detail.php?kadai_id=<?= $kadai_id ?>" method="post">
-                解決策：<textarea name="content"><?= $solution; ?></textarea><br />
-                改善ファイル：<textarea name="resolve_file"><?= $solution_code; ?></textarea>
+            <form action="../../handlers/posts/kadai_detail.php?kadai_id=<?= htmlspecialchars($kadai_id); ?>" method="post">
+                コメント：<textarea name="content"><?= htmlspecialchars($solution); ?></textarea><br />
+                添付ファイル：<textarea name="resolve_file"><?= htmlspecialchars($solution_code); ?></textarea>
                 <input type="submit" name="submit">
             </form>
         </div>
+    <?php else: ?>
+        <p>コメントをするには、<a href="log_in.php">こちら</a>からログインしてください。</p>
     <?php endif ?>
 
     <div id="kadai-id" data-kadai-id="<?= htmlspecialchars($kadai_id); ?>"></div>

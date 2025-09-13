@@ -26,17 +26,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // 未入力チェック
     // ともに未入力の場合、username未入力を出す
     if ($input_username === "") {
-        $credential_message = "Please input username!";
+        $credential_message = "ユーザー名を入力してください。";
     } elseif ($input_password === "") {
-        $_SESSION["old_input_username"] = $input_username;
-        $credential_message = "Please input password!";
-    }
-
-
-    // usernameは空白文字の仕様を禁止
-    elseif (preg_match('/^\s+$/', $input_username)) {
-        $_SESSION["old_input_username"] = $input_username;
-        $credential_message = "You can't use whitespaces for your username.";
+        $credential_message = "パスワードを入力してください。";
     }
 
 
@@ -59,24 +51,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $db_password_hash = $stmt->fetchColumn();
 
         if (!$db_password_hash) {
-            $_SESSION["old_input_username"] = $input_username;
-            $credential_message = "Not found your username.";
+            $credential_message = "ユーザー名：" . $input_username . "は存在しません。";
         }
 
 
         // 入力されたパスワードとデータベースのハッシュを比較
         elseif (!password_verify($input_password, $db_password_hash)) {
-            $_SESSION["old_input_username"] = $input_username;
-            $credential_message = "Invalid password.";
+            $credential_message = "パスワードが違います。";
         } else {
-            $_SESSION["username"] = $input_username;
-            $credential_message = "Log-in success!";
+            $credential_message = "ログイン成功！";
             $credential_success = true;
         }
     }
 
 
     // セッションに登録
+    if (!$credential_success) {
+        $_SESSION["old_input_username"] = $input_username;
+    }
     $_SESSION["credential_message"] = $credential_message;
 
 

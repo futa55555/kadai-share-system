@@ -5,7 +5,6 @@
  * Description: 課題投稿の表示ページ
  */
 
-
 // セッション情報
 session_start();
 
@@ -57,25 +56,25 @@ unset(
     </h1>
 
     <?php if ($username): ?>
-        You're logged in as <?= $username ?>.<br />
-        If you wanna log out, click <a href="../../handlers/auth/log_out.php">here</a>.<br />
+        <p><?= htmlspecialchars($username); ?>としてログインしています。</p>
+        <p>ログアウトは<a href="../../handlers/auth/log_out.php">こちら</a></p>
     <?php else: ?>
-        You're not logged in.<br />
-        If you wanna log in, click <a href="log_in.php">here</a>.<br />
+        <p>ログインしていません。</p>
+        <p>ログインは<a href="log_in.php">こちら</a></p>
     <?php endif ?>
 
     <hr />
 
     <?php if ($username): ?>
         <?php if ($kadai_post_message !== ""): ?>
-            <?= $kadai_post_message ?><br />
+            <?= htmlspecialchars($kadai_post_message); ?><br />
         <?php endif ?>
         <?php if ($comment_post_message !== ""): ?>
-            <?= $comment_post_message ?><br />
+            <?= htmlspecialchars($comment_post_message); ?><br />
         <?php endif ?>
 
 
-        <div class="kadai_post">
+        <div class="kadai-post">
             <form action="../../handlers/posts/kadai_post.php" method="post">
                 ミッション<br />
                 大分類：
@@ -84,13 +83,13 @@ unset(
                 <select name="mission_detail" id="mission-detail" data-prev-detail="<?= htmlspecialchars($mission_detail); ?>" required></select>
                 <br />
                 やりたいこと：
-                <input type="text" name="goal" value="<?= $goal; ?>">
+                <input type="text" name="goal" value="<?= htmlspecialchars($goal); ?>">
                 <br />
                 問題点：
-                <textarea name="problem"><?= $problem; ?></textarea>
+                <textarea name="problem"><?= htmlspecialchars($problem); ?></textarea>
                 <br />
                 問題ファイル：
-                <textarea name="error_code"><?= $error_code; ?></textarea>
+                <textarea name="error_code"><?= htmlspecialchars($error_code); ?></textarea>
                 <br />
                 解決状況：
                 <select name="resolve_state" id="solve-state">
@@ -100,15 +99,15 @@ unset(
                 <br />
 
                 <div id="comment-box" style="display:none;">
-                    解決策：<textarea name="solution"><?= $solution; ?></textarea><br />
-                    改善ファイル：<textarea name="solution_code" placeholder="空欄可"><?= $solution_code; ?></textarea>
+                    解決策：<textarea name="solution"><?= htmlspecialchars($solution); ?></textarea><br />
+                    解決ファイル：<textarea name="solution_code" placeholder="空欄可"><?= htmlspecialchars($solution_code); ?></textarea>
                 </div>
 
                 <input type="submit" name="submit">
             </form>
         </div>
     <?php else: ?>
-        To post your kadai, please <a href="log_in.php">log in</a>.
+        <p>投稿をするには、<a href="log_in.php">こちら</a>からログインしてください。</p>
     <?php endif ?>
 </body>
 

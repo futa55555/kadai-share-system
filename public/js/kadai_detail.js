@@ -17,9 +17,22 @@ async function loadKadaiDetail() {
 
             const kd = json.data;
 
-            for (const [key, value] of Object.entries(kd)) {
+            const normalFields = ["kadai_id", "username", "mission_genre", "mission_detail", "goal", "problem", "resolve_state", "created_at"];
+            normalFields.forEach(field => {
+                if (kd[field] !== undefined) {
+                    const li = document.createElement("li");
+                    li.textContent = `${field}: ${kd[field]}`;
+                    detail.appendChild(li);
+                }
+            });
+
+            if (kd.error_file) {
                 const li = document.createElement("li");
-                li.textContent = `${key}: ${value}`;
+                const a = document.createElement("a");
+                a.href = `../../show_file.php?file=${encodeURIComponent(kd.error_file)}`;
+                a.target = "_blank";
+                a.textContent = `エラーファイル: ${kd.error_file.split('/').pop()}`; // ファイル名のみ表示
+                li.appendChild(a);
                 detail.appendChild(li);
             }
         } else {

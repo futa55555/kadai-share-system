@@ -5,7 +5,6 @@
  * Description: トップページ
  */
 
-
 // セッション情報
 session_start();
 
@@ -32,11 +31,11 @@ $username = $_SESSION["username"] ?? "";
     </h1>
 
     <?php if ($username): ?>
-        You're logged in as <?= $username ?>.<br />
-        If you wanna log out, click <a href="../../handlers/auth/log_out.php">here</a>.<br />
+        <p><?= htmlspecialchars($username); ?>としてログインしています。</p>
+        <p>ログアウトは<a href="../../handlers/auth/log_out.php">こちら</a></p>
     <?php else: ?>
-        You're not logged in.<br />
-        If you wanna log in, click <a href="log_in.php">here</a>.<br />
+        <p>ログインしていません。</p>
+        <p>ログインは<a href="log_in.php">こちら</a></p>
     <?php endif ?>
 
     <hr />
