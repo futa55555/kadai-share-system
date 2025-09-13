@@ -5,7 +5,10 @@
 
 async function loadComments() {
     try {
-        const res = await fetch("../../handlers/api/comment_list.php");
+        const detailEl = document.getElementById("kadai-id");
+        const kadaiId = detailEl.dataset.kadaiId;
+
+        const res = await fetch(`./../handlers/api/comment_list.php?kadai_id=${kadai_id}`);
         const json = await res.json();
 
         if (json.status === "success") {

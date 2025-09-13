@@ -31,7 +31,7 @@ unset(
 <head>
     <meta charset="UTF-8">
     <title>課題詳細ページ</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <script src="../js/kadai_detail.js" defer></script>
     <script src="../js/comment_list.js" defer></script>
 </head>
@@ -63,7 +63,7 @@ unset(
         <ul id="comment-list"></ul>
     </div>
 
-    <?php if ($user_name): ?>
+    <?php if ($username): ?>
         <?php if ($comment_post_message !== ""): ?>
             <?= $comment_post_message; ?><br />
         <?php endif ?>
@@ -77,7 +77,7 @@ unset(
         </div>
     <?php endif ?>
 
-    <div id="kadai-detail" data-kadai-id="<?= htmlspecialchars($kadai_id); ?>"></div>
+    <div id="kadai-id" data-kadai-id="<?= htmlspecialchars($kadai_id); ?>"></div>
 </body>
 
 </html>

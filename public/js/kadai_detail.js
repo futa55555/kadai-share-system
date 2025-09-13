@@ -5,10 +5,10 @@
 
 async function loadKadaiDetail() {
     try {
-        const detailEl = document.getElementById("kadai-detail");
+        const detailEl = document.getElementById("kadai-id");
         const kadaiId = detailEl.dataset.kadaiId;
 
-        const res = await fetch("../../handlers/api/kadai_detail.php?kadai_id=${kadaiId}");
+        const res = await fetch(`../../handlers/api/kadai_detail.php?kadai_id=${kadaiId}`);
         const json = await res.json();
 
         if (json.status === "success") {
@@ -19,7 +19,7 @@ async function loadKadaiDetail() {
 
             for (const [key, value] of Object.entries(kd)) {
                 const li = document.createElement("li");
-                li.textContent = "${key*: ${value}";
+                li.textContent = `${key}: ${value}`;
                 detail.appendChild(li);
             }
         } else {
