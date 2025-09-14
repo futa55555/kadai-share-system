@@ -7,26 +7,17 @@
 
 require '../../includes/db.php';
 require '../../includes/response.php';
+require '../../models/Kadai.php';
+
 
 try {
-    $sql_get_kadai_list = <<<SQL
-        SELECT
-            kadai_id,
-            username,
-            mission_genre,
-            mission_detail,
-            goal,
-            problem,
-            resolve_state,
-            created_at
-        FROM
-            kadai
-        ;
-    SQL;
-    $stmt = $pdo->query($sql_get_kadai_list);
-    $kadai_list = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $kadai_list = Kadai::getKadaiList($pdo);
 
-    jsonResponse($kadai_list);
-} catch (PDOException $e) {
-    jsonError($e->getMessage());
+    if ($kadai_list === null) {
+        jsonError("課題一覧の取得に失敗しました。");
+    } else {
+        jsonResponse($kadai_list);
+    }
+} catch (Exception $e) {
+    jsonError("Unexpected Error: " . $e->getMessage());
 }

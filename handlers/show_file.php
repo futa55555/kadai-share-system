@@ -1,7 +1,7 @@
 <?php
 
 /**
- * File: public/show_file.php
+ * File: handlers/show_file.php
  * Description: アップロードファイルの表示
  */
 
@@ -45,10 +45,4 @@ if (strpos($filePath, $baseDir) !== 0 || !is_file($filePath)) {
 }
 
 
-// MIMEタイプを判定
-$finfo = finfo_open(FILEINFO_MIME_TYPE);
-$mimeType = finfo_file($finfo, $filePath);
-finfo_close($finfo);
-
-header("Content-Type: {$mimeType}");
-readfile($filePath);
+$lines = file($filePath, FILE_IGNORE_NEW_LINES);

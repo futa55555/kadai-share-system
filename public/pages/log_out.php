@@ -24,20 +24,22 @@ $username = $_SESSION["username"] ?? "";
 </head>
 
 <body>
+    <h1>
+        <a href="index.php">
+            課題共有システム
+        </a>
+    </h1>
 
+
+    <div class="logout-message">
+        <?php if ($username !== ""): ?>
+            <p>正常にログアウトできませんでした。</p>
+            <p><a href="../../handlers/auth/log_out.php">もう一度試す</a></p>
+        <?php else: ?>
+            <p>正常にログアウトできました。</p>
+            <p><a href="log_in.php">再びログインする</a></p>
+        <?php endif ?>
+    </div>
 </body>
-<h1>
-    <a href="index.php">
-        課題共有システム
-    </a>
-</h1>
-
-<?php if ($username): ?>
-    <p>正常にログアウトできませんでした。</p>
-    <p><a href="../../handlers/auth/log_out.php">もう一度試す</a></p>
-<?php else: ?>
-    <p>正常にログアウトできました。</p>
-    <p><a href="log_in.php">再びログインする</a></p>
-<?php endif ?>
 
 </html>

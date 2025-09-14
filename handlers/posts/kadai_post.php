@@ -6,12 +6,21 @@
  */
 
 require '../../includes/db.php';
+require '../../models/Kadai.php';
+require '../../models/Comment.php';
 
 
 // セッション情報
 session_start();
 
 $username = $_SESSION["username"] ?? "";
+
+
+// ログインしてなければ戻る
+if ($username === "") {
+    header("Location: ../../public/pages/kadai_post.php");
+    exit;
+}
 
 
 // 投稿処理
@@ -58,54 +67,31 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // 入力内容を投稿
     else {
-        $sql_insert_kadai = <<<SQL
-            INSERT INTO
-                kadai
-            (
-                username,
-                mission_genre,
-                mission_detail,
-                goal,
-                problem,
-                error_file,
-                resolve_state,
-                created_at
-            )
-            VALUES
-            (
-                :username,
-                :mission_genre,
-                :mission_detail,
-                :goal,
-                :problem,
-                :error_file,
-                :resolve_state,
-                :created_at
-            )
-            ;
-        SQL;
-
         date_default_timezone_set('Asia/Tokyo');
-        $date = date('Y-m-d H:i:s');
+        $created_at = date('Y-m-d H:i:s');
 
+        $error_filename = "";
         if ($error_code !== "") {
-            $error_file = "uploads/kadais/" . $username . "-kadai-" . date("dHis", $now) . ".txt";
+            $dir = __DIR__ . "/../../uploads/kadais/";
+            $error_filename = $username . "-kadai-" . date("dHis") . ".txt";
+            $error_file = $dir . $error_filename;
+
             file_put_contents($error_file, $error_code);
         }
 
-        $stmt = $pdo->prepare($sql_insert_kadai);
-        $kadai_post_success = $stmt->execute([
-            "username" => $username,
-            "mission_genre" => $mission_genre,
-            "mission_detail" => $mission_detail,
-            "goal" => $goal,
-            "problem" => $problem,
-            "error_file" => $error_file,
-            "resolve_state" => $resolve_state,
-            "created_at" => $date
-        ]);
+        $kadai_post_success = Kadai::postKadai(
+            $pdo,
+            $username,
+            $mission_genre,
+            $mission_detail,
+            $goal,
+            $problem,
+            $error_filename,
+            $resolve_state,
+            $created_at
+        );
 
-        if (!$kadai_post_success) {
+        if ($kadai_post_success === false) {
             $kadai_post_message = "課題の投稿に失敗しました。";
         } else {
             $kadai_post_message = "課題投稿成功！";
@@ -113,66 +99,43 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
             if ($resolve_state === "resolved") {
-                // コメントを投稿
-                $sql_insert_comment = <<<SQL
-                    INSERT INTO
-                        comment
-                    (
-                        username,
-                        kadai_id,
-                        comment_type,
-                        content,
-                        comment_file,
-                        created_at
-                    )
-                    VALUES
-                    (
-                        :username,
-                        :kadai_id,
-                        'solution',
-                        :content,
-                        :comment_file,
-                        :created_at
-                    )
-                    ;
-                SQL;
+                // 課題idを取得
+                $kadai_id = Kadai::getLatestKadaiId(
+                    $pdo,
+                    $username
+                );
 
-                $sql_get_kadai_id = <<<SQL
-                    SELECT
-                        kadai_id
-                    FROM
-                        kadai
-                    WHERE
-                        username = :username
-                    ORDER BY
-                        kadai_id DESC
-                    ;
-                SQL;
-
-                $stmt = $pdo->prepare($sql_get_kadai_id);
-                $stmt->execute([
-                    "username" => $username
-                ]);
-                $kadai_id = $stmt->fetchColumn();
-
-                if ($comment_code !== "") {
-                    $comment_file = "uploads/comments/" . $username . "-kadai-" . date("dHis", $now) . ".txt";
-                    file_put_contents($comment_file, $comment_code);
+                if ($kadai_id === null) {
+                    $comment_post_message = "課題idの取得に失敗しました。";
                 }
 
-                $stmt = $pdo->prepare($sql_insert_comment);
-                $comment_post_success = $stmt->execute([
-                    "username" => $username,
-                    "kadai_id" => $kadai_id,
-                    "content" => $content,
-                    "comment_file" => $comment_file,
-                    "created_at" => $date
-                ]);
 
-                if (!$comment_post_success) {
-                    $comment_post_message = "コメントの投稿に失敗しました。";
-                } else {
-                    $comment_post_message = "コメント投稿成功！";
+                // コメントを投稿
+                else {
+                    $comment_filename = "";
+                    if ($comment_code !== "") {
+                        $dir = __DIR__ . "/../../uploads/comments/";
+                        $comment_filename = $username . "-comment-" . date("dHis") . ".txt";
+                        $comment_file = $dir . $comment_filename;
+
+                        file_put_contents($comment_file, $comment_code);
+                    }
+
+                    $comment_post_success = Comment::postComment(
+                        $pdo,
+                        $username,
+                        $kadai_id,
+                        'solution',
+                        $content,
+                        $comment_filename,
+                        $created_at
+                    );
+
+                    if ($comment_post_success === false) {
+                        $comment_post_message = "コメントの投稿に失敗しました。";
+                    } else {
+                        $comment_post_message = "コメント投稿成功！";
+                    }
                 }
             }
         }
@@ -180,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
     // セッションに登録
-    if (!$post_success) {
+    if ($post_success === false) {
         $_SESSION["mission_genre"] = $mission_genre;
         $_SESSION["mission_detail"] = $mission_detail;
         $_SESSION["goal"] = $goal;
@@ -196,7 +159,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
     // 然るべきページに遷移
-    $location = ($post_success) ? "index.php" : "kadai_post.php";
+    $location = ($post_success === true) ? "index.php" : "kadai_post.php";
     header("Location: ../../public/pages/" . $location);
     exit;
 }

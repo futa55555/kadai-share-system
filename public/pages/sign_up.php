@@ -16,6 +16,13 @@ unset(
     $_SESSION["old_input_username"],
     $_SESSION["credential_message"]
 );
+
+
+// ログイン済みならトップページへ
+if ($username !== "") {
+    header("Location: index.php");
+    exit;
+}
 ?>
 
 
@@ -38,28 +45,50 @@ unset(
         </a>
     </h1>
 
-    <?php if ($username): ?>
-        <p><?= htmlspecialchars($username); ?>としてログインしています。</p>
-        <p>ログアウトは<a href="../../handlers/auth/log_out.php">こちら</a></p>
-    <?php else: ?>
-        <p>ログインしていません。</p>
-        <p>ログインは<a href="log_in.php">こちら</a></p>
-    <?php endif ?>
+
+    <div class="have-account">
+        <p>アカウントをお持ちの場合は<a href="log_in.php">こちら</a></p>
+    </div>
+
 
     <hr />
 
-    <form action="../../handlers/auth/sign_up.php" method="post">
-        ユーザー名：<input type="text" name="username" autocomplete="username" value="<?= htmlspecialchars($old_input_username); ?>"><br />
-        パスワード：<input type="password" name="password" autocomplete="new-password"><br />
-        <input type="submit" name="submit" value="サインアップ">
-    </form>
 
-    <?= $credential_message . "<br />" ?>
+    <div class="signup-form">
+        <form action="../../handlers/auth/sign_up.php" method="post">
+            <div class="signup-group">
+                <label for="username" class="signup-label">
+                    ユーザー名：
+                </label>
+
+                <input type="text" id="username" name="username" class="signup-input" autocomplete="username" value="<?= htmlspecialchars($old_input_username) ?>">
+            </div>
+
+            <div class="signup-group">
+                <label for="password" class="signup-label">
+                    パスワード：
+                </label>
+
+                <input type="password" id="password" name="password" class="signup-input" autocomplete="new-password"><br />
+            </div>
+
+            <input type="submit" name="submit" class="btn btn-submit" value="サインアップ">
+        </form>
+    </div>
+
+
+    <div class="error-message">
+        <?php if ($credential_message !== ""): ?>
+            <?= htmlspecialchars($credential_message) ?>
+        <?php endif ?>
+    </div>
+
 
     <hr />
+
 
     <div class="account-list">
-        <p><strong>Account list</strong></p>
+        <h3>アカウント一覧</h3>
         <ul id="user-list"></ul>
     </div>
 </body>

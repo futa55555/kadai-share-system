@@ -56,57 +56,107 @@ unset(
         </a>
     </h1>
 
-    <?php if ($username): ?>
-        <p><?= htmlspecialchars($username); ?>としてログインしています。</p>
-        <p>ログアウトは<a href="../../handlers/auth/log_out.php">こちら</a></p>
-    <?php else: ?>
-        <p>ログインしていません。</p>
-        <p>ログインは<a href="log_in.php">こちら</a></p>
-    <?php endif ?>
+
+    <div class="user-message">
+        <?php if ($username !== ""): ?>
+            <div class="login-message">
+                <p><?= htmlspecialchars($username) ?>としてログインしています。</p>
+                <p>ログアウトは<a href="../../handlers/auth/log_out.php">こちら</a></p>
+            </div>
+        <?php else: ?>
+            <div class="login-message">
+                <p>ログインしていません。</p>
+                <p>ログインは<a href="log_in.php">こちら</a></p>
+            </div>
+        <?php endif ?>
+    </div>
+
 
     <hr />
 
-    <?php if ($username): ?>
-        <?php if ($kadai_post_message !== ""): ?>
-            <?= htmlspecialchars($kadai_post_message); ?><br />
-        <?php endif ?>
-        <?php if ($comment_post_message !== ""): ?>
-            <?= htmlspecialchars($comment_post_message); ?><br />
-        <?php endif ?>
 
-
-        <div class="kadai-post">
+    <?php if ($username !== ""): ?>
+        <div class="kadai-form">
             <form action="../../handlers/posts/kadai_post.php" method="post">
-                ミッション<br />
-                大分類：
-                <select name="mission_genre" id="mission-genre" data-prev-genre="<?= htmlspecialchars($mission_genre); ?>" required></select>
-                小分類：
-                <select name="mission_detail" id="mission-detail" data-prev-detail="<?= htmlspecialchars($mission_detail); ?>" required></select>
-                <br />
-                やりたいこと：
-                <input type="text" name="goal" value="<?= htmlspecialchars($goal); ?>">
-                <br />
-                問題点：
-                <textarea name="problem"><?= htmlspecialchars($problem); ?></textarea>
-                <br />
-                問題ファイル：
-                <textarea name="error_code"><?= htmlspecialchars($error_code); ?></textarea>
-                <br />
-                解決状況：
-                <select name="resolve_state" id="resolve-state">
-                    <option value="unresolved" <?= ($resolve_state === 'unresolved') ? 'selected' : ''; ?>>未解決</option>
-                    <option value="resolved" <?= ($resolve_state === 'resolved') ? 'selected' : ''; ?>>解決済み</option>
-                </select>
-                <br />
+                <div class="kadai-group">
+                    <label for="mission-genre" class="kadai-label">
+                        ミッション：
+                    </label>
 
-                <div id="comment-box" style="display:none;">
-                    解決策：<textarea name="content"><?= htmlspecialchars($content); ?></textarea><br />
-                    解決ファイル：<textarea name="comment_code" placeholder="空欄可"><?= htmlspecialchars($comment_code); ?></textarea>
+                    <select name="mission_genre" id="mission-genre" class="kadai-input mission-genre" data-prev-genre="<?= htmlspecialchars($mission_genre) ?>" required></select>
+
+                    <span class="separator">-</span>
+
+                    <select name="mission_detail" id="mission-detail" class="kadai-input mission-detail" data-prev-detail="<?= htmlspecialchars($mission_detail) ?>" required></select>
                 </div>
 
-                <input type="submit" name="submit">
+                <div class="kadai-group">
+                    <label for="goal" class="kadai-label">
+                        やりたいこと：
+                    </label>
+
+                    <input type="text" id="goal" name="goal" class="kadai-input" value="<?= htmlspecialchars($goal) ?>">
+
+                </div>
+                <div class="kadai-group">
+                    <label for="problem" class="kadai-label">
+                        問題点：
+                    </label>
+
+                    <textarea id="problem" name="problem" class="kadai-input"><?= htmlspecialchars($problem) ?></textarea>
+
+                </div>
+                <div class="kadai-group">
+                    <label for="error-code" class="kadai-label">
+                        問題ファイル：
+                    </label>
+
+                    <textarea id="error-code" name="error_code" class="kadai-input"><?= htmlspecialchars($error_code) ?></textarea>
+                </div>
+                <div class="kadai-group">
+                    <label for="resolve-state" class="kadai-label">
+                        解決状況：
+                    </label>
+
+                    <select id="resolve-state" name="resolve_state" class="kadai-input">
+                        <option value="unresolved" <?= ($resolve_state === 'unresolved') ? 'selected' : '' ?>>未解決</option>
+                        <option value="resolved" <?= ($resolve_state === 'resolved') ? 'selected' : '' ?>>解決済み</option>
+                    </select>
+                </div>
+
+                <div id="comment-box" style="display:none;">
+                    <div class="comment-group">
+                        <label for="content" class="comment-label">
+                            解決策：
+                        </label>
+
+                        <textarea id="content" name="content" class="comment-input"><?= htmlspecialchars($content) ?></textarea>
+                    </div>
+
+                    <div class="comment-group">
+                        <label for="comment-code" class="comment-label">
+                            解決ファイル：
+                        </label>
+
+                        <textarea id="comment-code" name="comment_code" class="comment-input" placeholder="空欄可"><?= htmlspecialchars($comment_code) ?></textarea>
+                    </div>
+                </div>
+
+                <input type="submit" name="submit" class="btn btn-submit" value="投稿">
             </form>
         </div>
+
+
+        <?php if ($kadai_post_message !== "" || $comment_post_message !== ""): ?>
+            <div class="error-message">
+                <?php if ($kadai_post_message !== ""): ?>
+                    <p><?= htmlspecialchars($kadai_post_message) ?></p>
+                <?php endif ?>
+                <?php if ($comment_post_message !== ""): ?>
+                    <p><?= htmlspecialchars($comment_post_message) ?></p>
+                <?php endif ?>
+            </div>
+        <?php endif ?>
     <?php else: ?>
         <!-- ダミー -->
         <select id="mission-genre" style="display:none;"></select>
@@ -115,7 +165,10 @@ unset(
             <option value="unresolved" selected></option>
         </select>
 
-        <p>投稿をするには、<a href="log_in.php">こちら</a>からログインしてください。</p>
+
+        <div class="login-prompt">
+            <p>投稿をするにはログインしてください。</p>
+        </div>
     <?php endif ?>
 </body>
 

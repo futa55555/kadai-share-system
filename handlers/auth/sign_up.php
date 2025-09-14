@@ -6,6 +6,7 @@
  */
 
 require '../../includes/db.php';
+require '../../models/User.php';
 
 
 // セッション情報
@@ -13,6 +14,12 @@ session_start();
 
 $username = $_SESSION["username"] ?? "";
 
+
+// ログイン済みならトップページへ
+if ($username !== "") {
+    header("Location: ../../public/pages/index.php");
+    exit;
+}
 
 
 // サインアップ処理
@@ -41,53 +48,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // 入力されたusernameからpasswordを取得
     else {
-        $sql_get_password_hash = <<<SQL
-                SELECT
-                    password_hash
-                FROM
-                    user
-                WHERE
-                    username = :username
-                ;
-            SQL;
+        $db_password_hash = User::getPasswordByUsername(
+            $pdo,
+            $input_username
+        );
 
-        $stmt = $pdo->prepare($sql_get_password_hash);
-        $stmt->execute([
-            "username" => $input_username
-        ]);
-        $db_password_hash = $stmt->fetchColumn();
-
-        if ($db_password_hash) {
+        if ($db_password_hash !== "") {
             $credential_message = "ユーザー名：" . $input_username . "は既に使用されています。";
         }
 
 
-        // 入力されたパスワードのハッシュを生成
+        // ユーザー登録
         else {
             $password_hash = password_hash($input_password, PASSWORD_DEFAULT);
 
-            $sql_insert_user = <<<SQL
-                INSERT INTO
-                    user
-                (
-                    username,
-                    password_hash
-                )
-                VALUES
-                (
-                    :username,
-                    :password_hash
-                )
-                ;
-            SQL;
+            $success = User::registerUser(
+                $pdo,
+                $input_username,
+                $password_hash
+            );
 
-            $stmt = $pdo->prepare($sql_insert_user);
-            $success = $stmt->execute([
-                "username" => $input_username,
-                "password_hash" => $password_hash
-            ]);
-
-            if (!$success) {
+            if ($success === false) {
                 $credential_message = "サインアップに失敗しました。";
             } else {
                 $credential_message = "サインアップ成功！";
@@ -98,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
     // セッションに登録
-    if (!$credential_success) {
+    if ($credential_success === false) {
         $_SESSION["old_input_username"] = $input_username;
     } else {
         $_SESSION["username"] = $input_username;
@@ -107,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
     // 然るべきページに遷移
-    $location = ($credential_success) ? "index.php" : "sign_up.php";
+    $location = ($credential_success === true) ? "index.php" : "sign_up.php";
     header("Location: ../../public/pages/" . $location);
     exit;
 }

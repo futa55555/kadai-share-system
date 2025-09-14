@@ -20,35 +20,36 @@ async function loadComments() {
                 card.classList.add("comment-card");
                 card.classList.add(`${comment.comment_type}`);
 
+
                 const user = document.createElement("p");
                 user.classList.add("comment-user");
                 user.textContent = comment.username;
                 card.appendChild(user);
+
 
                 const content = document.createElement("p");
                 content.classList.add("comment-content");
                 content.textContent = comment.content;
                 card.appendChild(content);
 
+
                 const commentFile = document.createElement("p");
                 commentFile.classList.add("comment-commentFile");
 
-                if (comment.comment_file && comment.comment_file.trim() !== "") {
-                    const link = document.createElement("a");
-                    link.href = `../../show_file.php?type=comment&file=${encodeURIComponent(comment.comment_file)}`;
-                    link.target = "_blank";
-                    link.textContent = `${comment.comment_file.split('/').pop()}`;
-                    commentFile.appendChild(link);
-                } else {
-                    commentFile.textContent = "添付なし"
-                }
+                const link = document.createElement("a");
+                link.href = `../pages/show_file.php?type=comment&file=${encodeURIComponent(comment.comment_filename)}`;
+                link.target = "_blank";
+                link.textContent = `${comment.comment_filename.split('/').pop()}`;
 
+                commentFile.appendChild(link);
                 card.appendChild(commentFile);
+
 
                 const createdAt = document.createElement("p");
                 createdAt.classList.add("comment-createdAt");
                 createdAt.textContent = comment.created_at;
                 card.appendChild(createdAt);
+
 
                 list.appendChild(card);
             });

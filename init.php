@@ -31,7 +31,7 @@ $queries = [
                 mission_detail INT NOT NULL,
                 goal VARCHAR(200),
                 problem TEXT,
-                error_file TEXT,
+                error_filename VARCHAR(50),
                 resolve_state VARCHAR(200),
                 created_at DATETIME NOT NULL
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -46,7 +46,7 @@ $queries = [
                 kadai_id INT NOT NULL,
                 comment_type ENUM('solution', 'empathy') NOT NULL,
                 content TEXT,
-                comment_file TEXT,
+                comment_filename VARCHAR(50),
                 created_at DATETIME NOT NULL
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
         SQL

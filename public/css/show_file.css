@@ -1,0 +1,26 @@
+.code {
+    font-family: monospace;
+    background: #f8f8f8;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.line {
+    display: flex;
+    align-items: flex-start;
+}
+
+.num {
+    width: 40px;
+    text-align: right;
+    margin-right: 8px;
+    color: #888;
+    user-select: none;
+    /* コピー時に番号を除外 */
+}
+
+.text {
+    white-space: pre;
+    /* ←ここ重要 */
+    flex: 1;
+}

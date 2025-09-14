@@ -7,19 +7,17 @@
 
 require '../../includes/db.php';
 require '../../includes/response.php';
+require '../../models/User.php';
+
 
 try {
-    $sql_get_user_list = <<<SQL
-        SELECT
-            username
-        FROM
-            user
-        ;
-    SQL;
-    $stmt = $pdo->query($sql_get_user_list);
-    $user_list = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $user_list = User::getUserList($pdo);
 
-    jsonResponse($user_list);
-} catch (PDOException $e) {
-    jsonError($e->getMessage());
+    if ($user_list === null) {
+        jsonError("ユーザー一覧の取得に失敗しました。");
+    } else {
+        jsonResponse($user_list);
+    }
+} catch (Exception $e) {
+    jsonError("Unexpected Error: " . $e->getMessage());
 }

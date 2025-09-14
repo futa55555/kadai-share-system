@@ -1,0 +1,64 @@
+/* コメントカードの共通スタイル */
+.comment-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 12px 0;
+    background-color: #fafafa;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.08);
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.comment-card:hover {
+    transform: translateY(-2px);
+}
+
+/* 解決策コメントは青系 */
+.comment-card.solution {
+    border-left: 6px solid #0077cc;
+    background-color: #f0f8ff;
+}
+
+/* 共感コメントはオレンジ系 */
+.comment-card.empathy {
+    border-left: 6px solid #ff8800;
+    background-color: #fff5e6;
+}
+
+/* コメントユーザー名 */
+.comment-user {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+/* コメント本文 */
+.comment-solution {
+    margin: 6px 0;
+    white-space: pre-wrap;
+    /* 改行保持 */
+    color: #444;
+}
+
+/* 添付ファイルリンク */
+.comment-commentFile {
+    margin: 6px 0;
+    font-size: 0.9em;
+}
+
+.comment-commentFile a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.comment-commentFile a:hover {
+    text-decoration: underline;
+}
+
+/* 投稿日時 */
+.comment-createdAt {
+    font-size: 0.8em;
+    color: #666;
+    text-align: right;
+    margin-top: 8px;
+}

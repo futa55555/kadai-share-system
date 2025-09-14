@@ -31,19 +31,32 @@ $username = $_SESSION["username"] ?? "";
         </a>
     </h1>
 
-    <?php if ($username): ?>
-        <p><?= htmlspecialchars($username); ?>としてログインしています。</p>
-        <p>ログアウトは<a href="../../handlers/auth/log_out.php">こちら</a></p>
-    <?php else: ?>
-        <p>ログインしていません。</p>
-        <p>ログインは<a href="log_in.php">こちら</a></p>
-    <?php endif ?>
+
+    <div class="user-message">
+        <?php if ($username !== ""): ?>
+            <div class="login-message">
+                <p><?= htmlspecialchars($username) ?>としてログインしています。</p>
+                <p>ログアウトは<a href="../../handlers/auth/log_out.php">こちら</a></p>
+            </div>
+        <?php else: ?>
+            <div class="non-login-message">
+                <p>ログインしていません。</p>
+                <p>ログインは<a href="log_in.php">こちら</a></p>
+            </div>
+        <?php endif ?>
+    </div>
+
 
     <hr />
 
-    <a href="kadai_post.php">post</a>
+
+    <div class="kadai-post">
+        <a href="kadai_post.php">課題投稿</a>
+    </div>
+
 
     <hr />
+
 
     <div class="kadai-list" id="kadai-list"></div>
 </body>

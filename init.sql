@@ -18,7 +18,7 @@ CREATE TABLE kadai (
     mission_detail INT NOT NULL,
     goal VARCHAR(200) NOT NULL,
     problem TEXT NOT NULL,
-    error_file TEXT,
+    error_filename VARCHAR(50),
     resolve_state VARCHAR(20),
     created_at DATETIME NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
@@ -32,6 +32,6 @@ CREATE TABLE comment (
     kadai_id INT NOT NULL,
     comment_type ENUM('solution', 'empathy') NOT NULL,
     content TEXT NOT NULL,
-    comment_file TEXT,
+    comment_filename VARCHAR(50),
     created_at DATETIME NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;

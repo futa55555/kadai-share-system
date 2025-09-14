@@ -7,41 +7,26 @@
 
 require '../../includes/db.php';
 require '../../includes/response.php';
+require '../../models/Kadai.php';
+
 
 $kadai_id = $_GET["kadai_id"] ?? null;
 if (!$kadai_id || !is_numeric($kadai_id)) {
     jsonError("Invalid kadai_id", 400);
 }
 
+
 try {
-    $sql_get_kadai_detail = <<<SQL
-        SELECT
-            kadai_id,
-            username,
-            mission_genre,
-            mission_detail,
-            goal,
-            problem,
-            error_file,
-            resolve_state,
-            created_at
-        FROM
-            kadai
-        WHERE
-            kadai_id = :kadai_id
-        ;
-    SQL;
-    $stmt = $pdo->prepare($sql_get_kadai_detail);
-    $stmt->execute([
-        "kadai_id" => $kadai_id
-    ]);
-    $kadai_detail = $stmt->fetch(PDO::FETCH_ASSOC);
+    $kadai_detail = Kadai::getKadaiDetailById(
+        $pdo,
+        $kadai_id
+    );
 
-    if (!$kadai_detail) {
-        jsonError("Kadai not found", 404);
+    if ($kadai_detail === null) {
+        jsonError("課題詳細の取得に失敗しました。");
+    } else {
+        jsonResponse($kadai_detail);
     }
-
-    jsonResponse($kadai_detail);
 } catch (PDOException $e) {
-    jsonError($e->getMessage());
+    jsonError("Unexpected Error: " . $e->getMessage());
 }

@@ -6,12 +6,22 @@
  */
 
 require '../../includes/db.php';
+require '../../models/Comment.php';
 
 
 // セッション情報
 session_start();
 
 $username = $_SESSION["username"] ?? "";
+
+
+// ログインしてなければ戻る
+if ($username === "") {
+    header("Location: ../../public/pages/kadai_detail.php");
+    exit;
+}
+
+
 $kadai_id = $_GET["kadai_id"] ?? null;
 
 
@@ -41,47 +51,29 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // 入力内容を投稿
     else {
-        $sql_insert_comment = <<<SQL
-            INSERT INTO
-                comment
-            (
-                username,
-                kadai_id,
-                comment_type,
-                content,
-                comment_file,
-                created_at
-            )
-            VALUES
-            (
-                :username,
-                :kadai_id,
-                :comment_type,
-                :content,
-                :comment_file,
-                :created_at
-            )
-        SQL;
-
         date_default_timezone_set('Asia/Tokyo');
-        $date = date('Y-m-d H:i:s');
+        $created_at = date('Y-m-d H:i:s');
 
+        $comment_filename = "";
         if ($comment_code !== "") {
-            $comment_file = "uploads/comments/" . $username . "-comment-" . date("dHis", $now) . ".txt";
+            $dir = __DIR__ . "/../../uploads/comments/";
+            $comment_filename = $username . "-comment-" . date("dHis") . ".txt";
+            $comment_file = $dir . $comment_filename;
+
             file_put_contents($comment_file, $comment_code);
         }
 
-        $stmt = $pdo->prepare($sql_insert_comment);
-        $post_success = $stmt->execute([
-            "username" => $username,
-            "kadai_id" => $kadai_id,
-            "comment_type" => $comment_type,
-            "content" => $content,
-            "comment_file" => $comment_file,
-            "created_at" => $date
-        ]);
+        $post_success = Comment::postComment(
+            $pdo,
+            $username,
+            $kadai_id,
+            $comment_type,
+            $content,
+            $comment_filename,
+            $created_at
+        );
 
-        if (!$post_success) {
+        if ($post_success === false) {
             $comment_post_message = "コメントの投稿に失敗しました。";
         } else {
             $comment_post_message = "コメント投稿成功！";
@@ -91,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
     // セッションに登録
-    if (!$post_success) {
+    if ($post_success === false) {
         $_SESSION["comment_type"] = $comment_type;
         $_SESSION["content"] = $content;
         $_SESSION["comment_code"] = $comment_code;

@@ -13,28 +13,66 @@ async function loadKadaiDetail() {
 
         if (json.status === "success") {
             const detail = document.getElementById("kadai-detail");
-            detail.innerHTML = "";
+            detail.innerHTML = "<h2>課題詳細</h2>";
+
 
             const kd = json.data;
 
-            const normalFields = ["kadai_id", "username", "mission_genre", "mission_detail", "goal", "problem", "resolve_state", "created_at"];
-            normalFields.forEach(field => {
-                if (kd[field] !== undefined) {
-                    const li = document.createElement("li");
-                    li.textContent = `${field}: ${kd[field]}`;
-                    detail.appendChild(li);
-                }
-            });
 
-            if (kd.error_file) {
-                const li = document.createElement("li");
-                const a = document.createElement("a");
-                a.href = `../../show_file.php?type=kadai&file=${encodeURIComponent(kd.error_file)}`;
-                a.target = "_blank";
-                a.textContent = `${kd.error_file.split('/').pop()}`; // ファイル名のみ表示
-                li.appendChild(a);
-                detail.appendChild(li);
-            }
+            const card = document.createElement("div");
+            card.classList.add("kadai-detail-card");
+            card.classList.add(`${kd.resolve_state}`);
+
+
+            const user = document.createElement("p");
+            user.classList.add("kadai-detail-user");
+            user.textContent = `${kd.username}`;
+            card.appendChild(user);
+
+
+            const mission = document.createElement("p");
+            mission.classList.add("kadai-detail-mission");
+            mission.textContent = `${kd.mission_genre}-${kd.mission_detail}`;
+            card.appendChild(mission);
+
+
+            const goal = document.createElement("p");
+            goal.classList.add("kadai-detail-goal");
+            goal.textContent = `${kd.goal}`;
+            card.appendChild(goal);
+
+
+            const problem = document.createElement("p");
+            problem.classList.add("kadai-detail-problem");
+            problem.textContent = `${kd.problem}`;
+            card.appendChild(problem);
+
+
+            const errorFilename = document.createElement("p");
+            errorFilename.classList.add("kadai-detail-errorFile")
+
+            const link = document.createElement("a");
+            link.href = `show_file.php?type=kadai&file=${kd.error_filename}`;
+            link.target = "_blank";
+            link.textContent = `${kd.error_filename}`;
+
+            errorFilename.appendChild(link);
+            card.appendChild(errorFilename);
+
+
+            const resolveState = document.createElement("p");
+            resolveState.classList.add("kadai-detail-resolveState");
+            resolveState.textContent = `${kd.resolve_state}`;
+            card.appendChild(resolveState);
+
+
+            const createdAt = document.createElement("p");
+            createdAt.classList.add("kadai-detail-createdAt");
+            createdAt.textContent = `${kd.created_at}`;
+            card.appendChild(createdAt);
+
+
+            detail.appendChild(card);
         } else {
             console.error("API error:", json.message);
         }
