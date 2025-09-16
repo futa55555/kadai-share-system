@@ -1,133 +1,351 @@
-/* 全体の基本設定 */
+/* =========================
+   共通スタイル
+   ========================= */
 body {
-    font-family: "Helvetica Neue", Arial, sans-serif;
-    background-color: #f7f9fc;
+    font-family: "Segoe UI", "Hiragino Sans", sans-serif;
+    background-color: #f9faf9;
+    margin: 0;
+    padding: 0;
     color: #333;
-    margin: 0;
-    padding: 0 20%;
-}
-
-/* ヘッダー */
-h1 {
-    background-color: #2c3e50;
-    color: white;
-    margin: 0;
-    padding: 1rem;
     text-align: center;
-    font-size: 1.8rem;
 }
 
-h1 a {
-    color: white;
+a {
+    color: #4caf50;
     text-decoration: none;
 }
 
-/* コンテンツエリア */
-.container {
-    width: 90%;
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 1.5rem;
-    background: white;
+a:hover {
+    text-decoration: underline;
+}
+
+h1,
+h2,
+h3 {
+    margin: 0.5em 0;
+    color: #2f4f2f;
+}
+
+/* =========================
+   ボタン
+   ========================= */
+.btn {
+    display: inline-block;
+    padding: 0.8em 2em;
     border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* フォーム */
-form {
-    margin: 1rem 0;
-}
-
-input[type="text"],
-input[type="password"],
-input[type="number"],
-textarea,
-select {
-    width: 100%;
-    padding: 0.6rem;
-    margin: 0.5rem 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1rem;
-}
-
-textarea {
-    min-height: 80px;
-}
-
-input[type="submit"] {
-    background-color: #3498db;
-    color: white;
     border: none;
-    padding: 0.7rem 1.2rem;
-    margin-top: 0.5rem;
-    border-radius: 4px;
+    background-color: #8bc34a;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
     cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.2s;
+    transition: background 0.2s ease, transform 0.1s ease;
+    margin: 0.5em auto;
 }
 
-input[type="submit"]:hover {
-    background-color: #2980b9;
+.btn:hover {
+    background-color: #7cb342;
+    transform: translateY(-2px);
 }
 
-/* テーブル */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
-th,
-td {
-    border: 1px solid #ddd;
-    padding: 0.7rem;
+/* 課題投稿ボタンは特別に大きく */
+.kadai-post-button {
+    font-size: 1.3rem;
+    padding: 1em 2.5em;
+}
+
+/* =========================
+   課題リスト
+   ========================= */
+.kadai-list {
+    max-width: 900px;
+    margin: 2em auto;
+    padding: 1em;
     text-align: left;
 }
 
-th {
-    background-color: #3498db;
-    color: white;
+.kadai-list-heading {
+    font-size: 1.6rem;
+    margin-bottom: 1em;
+    border-left: 5px solid #8bc34a;
+    padding-left: 0.5em;
 }
-
-tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-/* ログイン情報やメッセージ */
-.message {
-    padding: 0.8rem;
-    margin: 1rem 0;
-    border-radius: 4px;
-    background-color: #ecf0f1;
-}
-
-
 
 .kadai-card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 16px;
-    margin: 12px 0;
-    background-color: #fafafa;
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 1.5em;
+    margin-bottom: 1.5em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.1s ease;
+    text-align: left;
+    /* 左詰め */
 }
 
-.kadai-card h3 {
-    margin: 0 0 8px;
+.kadai-card:hover {
+    transform: translateY(-3px);
 }
 
-.kadai-card p {
-    margin: 4px 0;
+/* 未解決/解決済みの色分け */
+.kadai-card.unresolved {
+    border-left: 8px solid #fbc02d;
+    background-color: #fffde7;
 }
 
-.kadai-card a {
+.kadai-card.resolved {
+    border-left: 8px solid #4caf50;
+    background-color: #f1f8e9;
+}
+
+.kadai-goal a {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #388e3c;
+}
+
+.kadai-goal a:hover {
+    color: #2e7d32;
+}
+
+/* ユーザー名とミッションを横並びに */
+.kadai-user,
+.kadai-mission {
     display: inline-block;
-    margin-top: 8px;
-    color: #0066cc;
-    text-decoration: none;
+    margin-right: 1em;
+    font-size: 0.95rem;
+    color: #555;
 }
 
-.kadai-card a:hover {
+/* 残りの要素も左詰め */
+.kadai-problem,
+.kadai-resolve-state,
+.kadai-created-at,
+.kadai-resolved-at {
+    margin: 0.4em 0;
+    font-size: 0.95rem;
+    color: #555;
+    display: block;
+}
+
+/* =========================
+   課題詳細カード
+   ========================= */
+.kadai-detail-card {
+    max-width: 800px;
+    margin: 2em auto;
+    padding: 1.5em;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    text-align: left;
+    /* 左詰め */
+}
+
+.kadai-detail-card.unresolved {
+    border-left: 8px solid #fbc02d;
+    background-color: #fffde7;
+}
+
+.kadai-detail-card.resolved {
+    border-left: 8px solid #4caf50;
+    background-color: #f1f8e9;
+}
+
+.kadai-detail-heading {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1em;
+    color: #2f4f2f;
+}
+
+.kadai-detail-user,
+.kadai-detail-mission {
+    display: inline-block;
+    margin-right: 1em;
+    font-size: 1rem;
+    color: #444;
+}
+
+.kadai-detail-goal {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #33691e;
+    margin: 0.5em 0;
+}
+
+.kadai-detail-problem,
+.kadai-detail-resolveState,
+.kadai-detail-createdAt,
+.kadai-detail-resolvedAt,
+.kadai-detail-errorFile {
+    margin: 0.5em 0;
+    font-size: 1rem;
+    color: #444;
+}
+
+.kadai-detail-errorFile a {
+    color: #1976d2;
+}
+
+.kadai-detail-errorFile a:hover {
     text-decoration: underline;
+}
+
+/* =========================
+   コメントリスト
+   ========================= */
+.comment-list {
+    max-width: 800px;
+    margin: 2em auto;
+    padding: 1em;
+    text-align: left;
+}
+
+.comment-list-heading {
+    font-size: 1.4rem;
+    margin-bottom: 1em;
+    border-left: 4px solid #cddc39;
+    padding-left: 0.5em;
+}
+
+.comment-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 1.2em;
+    margin-bottom: 1em;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    text-align: left;
+}
+
+/* コメント種類ごとの色分け */
+.comment-card.empathy {
+    border-left: 6px solid #ff9800;
+    background-color: #fff8e1;
+}
+
+.comment-card.solution {
+    border-left: 6px solid #4caf50;
+    background-color: #f1f8e9;
+}
+
+.comment-user {
+    font-weight: bold;
+    margin-bottom: 0.3em;
+    color: #33691e;
+}
+
+.comment-content {
+    margin: 0.5em 0;
+    line-height: 1.5;
+    color: #333;
+}
+
+.comment-comment-filename a {
+    color: #1976d2;
+}
+
+.comment-comment-filename a:hover {
+    text-decoration: underline;
+}
+
+/* =========================
+   フォーム共通
+   ========================= */
+.kadai-form,
+.login-form,
+.signup-form,
+.comment-form {
+    max-width: 600px;
+    margin: 2em auto;
+    padding: 1.5em;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    text-align: left;
+}
+
+.kadai-group,
+.login-group,
+.signup-group,
+.comment-group {
+    margin-bottom: 1.2em;
+}
+
+.kadai-label,
+.login-label,
+.signup-label,
+.comment-label {
+    display: block;
+    margin-bottom: 0.4em;
+    font-weight: bold;
+    color: #444;
+}
+
+.kadai-input,
+.login-input,
+.signup-input,
+.comment-input,
+.kadai-textarea,
+.comment-textarea,
+.kadai-select,
+.comment-select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.7em;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 0.95rem;
+    transition: border 0.2s;
+}
+
+.kadai-input:focus,
+.login-input:focus,
+.signup-input:focus,
+.comment-input:focus,
+.kadai-textarea:focus,
+.comment-textarea:focus,
+.kadai-select:focus,
+.comment-select:focus {
+    border-color: #8bc34a;
+    outline: none;
+}
+
+/* =========================
+   ヘッダー
+   ========================= */
+.title {
+    margin: 0;
+    padding: 1em;
+    text-align: center;
+    background: #f1f8e9;
+}
+
+.header-message {
+    text-align: center;
+    margin: 0.5em 0;
+    color: #666;
+}
+
+.header-button {
+    display: block;
+    margin: 0.5em auto;
+}
+
+
+/* =========================
+   改行を反映させる
+   ========================= */
+.kadai-problem,
+.kadai-detail-problem,
+.comment-content {
+    white-space: pre-line;
 }
