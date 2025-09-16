@@ -36,8 +36,7 @@ class Comment
         int $kadai_id,
         string $comment_type,
         string $content,
-        string $comment_filename,
-        string $created_at
+        string $comment_filename
     ): bool {
         $sql_post_comment = <<<SQL
             INSERT INTO
@@ -62,6 +61,9 @@ class Comment
         SQL;
 
         try {
+            date_default_timezone_set('Asia/Tokyo');
+            $date = date('Y-m-d H:i:s');
+
             $stmt = $pdo->prepare($sql_post_comment);
 
             return $stmt->execute([
@@ -70,7 +72,7 @@ class Comment
                 "comment_type" => $comment_type,
                 "content" => $content,
                 "comment_filename" => $comment_filename,
-                "created_at" => $created_at
+                "created_at" => $date
             ]);
         } catch (PDOException $e) {
             error_log("DB Error in postComment: " . $e->getMessage());

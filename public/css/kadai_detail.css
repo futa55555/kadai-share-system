@@ -87,3 +87,9 @@
     text-align: right;
     margin-top: 12px;
 }
+
+
+.comment-content {
+    white-space: pre-line;
+    /* 改行文字 \n をそのまま改行にする */
+}

@@ -159,7 +159,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
     // 然るべきページに遷移
-    $location = ($post_success === true) ? "index.php" : "kadai_post.php";
+    $location = ($post_success === true) ? "index.html" : "kadai_post.php";
     header("Location: ../../public/pages/" . $location);
     exit;
 }

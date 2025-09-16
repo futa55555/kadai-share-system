@@ -5,3 +5,6 @@ db.php
 uploads/
 
 .vscode/
+
+# ローカルテスト用
+init_sample.php

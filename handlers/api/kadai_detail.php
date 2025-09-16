@@ -3,6 +3,10 @@
 /**
  * File: handlers/api/kadai_detail.php
  * Description: 課題詳細の取得API
+ *
+ * @param int $kadai_id 課題ID（クエリパラメータ）
+ *
+ * @return JSON 課題詳細
  */
 
 require '../../includes/db.php';

@@ -3,6 +3,10 @@
 /**
  * File: handlers/api/user_list.php
  * Description: ユーザー一覧の取得API
+ *
+ * @param none なし
+ *
+ * @return JSON ユーザー一覧
  */
 
 require '../../includes/db.php';

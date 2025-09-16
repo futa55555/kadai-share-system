@@ -3,6 +3,10 @@
 /**
  * File: handlers/api/comment_list.php
  * Description: コメント一覧の取得API
+ *
+ * @param int $kadai_id 課題ID（クエリパラメータ）
+ *
+ * @return JSON コメント一覧
  */
 
 require '../../includes/db.php';

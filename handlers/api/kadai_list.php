@@ -3,6 +3,10 @@
 /**
  * File: handlers/api/kadai_list.php
  * Description: 課題一覧の取得API
+ *
+ * @param none なし
+ *
+ * @return JSON 課題一覧
  */
 
 require '../../includes/db.php';

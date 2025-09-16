@@ -45,7 +45,7 @@ $queries = [
             foreach ($rows as $row) {
                 echo "<tr>";
                 foreach ($row as $val) {
-                    echo "<td>" . htmlspecialchars($val) . "</td>";
+                    echo "<td>" . nl2br(htmlspecialchars($val)) . "</td>";
                 }
                 echo "</tr>";
             }

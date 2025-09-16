@@ -51,8 +51,9 @@ class User
     public static function registerUser(
         PDO $pdo,
         string $username,
-        string $password_hash
+        string $password
     ): bool {
+        $password_hash = password_hash($password, PASSWORD_DEFAULT);
         $sql_register_user = "INSERT INTO user (username, password_hash) VALUES (:username, :password_hash);";
 
         try {

@@ -20,7 +20,8 @@ CREATE TABLE kadai (
     problem TEXT NOT NULL,
     error_filename VARCHAR(50),
     resolve_state VARCHAR(20),
-    created_at DATETIME NOT NULL
+    created_at DATETIME NOT NULL,
+    resolved_at DATETIME
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 -- ==========================
 -- 解決策テーブル

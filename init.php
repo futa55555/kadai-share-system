@@ -5,10 +5,9 @@
  * Description: データベース初期化
  */
 
-require 'includes/db.php'
-?>
+require 'includes/db.php';
 
-<?php
+
 $queries = [
     <<<SQL
             DROP TABLE IF EXISTS user;
@@ -33,7 +32,8 @@ $queries = [
                 problem TEXT,
                 error_filename VARCHAR(50),
                 resolve_state VARCHAR(200),
-                created_at DATETIME NOT NULL
+                created_at DATETIME NOT NULL,
+                resolved_at DATETIME
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
         SQL,
     <<<SQL
