@@ -349,3 +349,33 @@ h3 {
 .comment-content {
     white-space: pre-line;
 }
+
+
+.mission-group {
+    display: flex;
+    align-items: center;
+    /* 上下中央揃え */
+    gap: 0.8em;
+    /* 要素の間隔 */
+}
+
+.mission-label {
+    white-space: nowrap;
+    /* ラベルは途中で改行しない */
+    font-weight: bold;
+}
+
+.mission-hyphen {
+    flex: 0;
+    /* 横幅を持たせない */
+    margin: 0;
+    /* 余白なし */
+    padding: 0;
+    border: none;
+    /* 枠なし */
+}
+
+.mission-genre,
+.mission-detail {
+    width: 12em;
+}

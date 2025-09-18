@@ -12,11 +12,11 @@ export function kadaiForm(username) {
 
 
     const missionGroup = document.createElement("div");
-    missionGroup.classList.add("kadai-group");
+    missionGroup.classList.add("kadai-group", "mission-group");
 
     const missionLabel = document.createElement("label");
     missionLabel.htmlFor = "mission-genre";
-    missionLabel.classList.add("kadak-label");
+    missionLabel.classList.add("kadak-label", "mission-label");
     missionLabel.textContent = "ミッション：";
     missionGroup.append(missionLabel);
 
@@ -85,6 +85,7 @@ export function kadaiForm(username) {
     const errorCodeInput = document.createElement("textarea");
     errorCodeInput.id = "error-code";
     errorCodeInput.classList.add("kadai-input", "kadai-textarea");
+    errorCodeInput.placeholder = "リンクではなく、ファイルの中身をコピペしてください。";
     errorCodeGroup.append(errorCodeInput);
 
     kadaiForm.append(errorCodeGroup);
@@ -151,6 +152,7 @@ export function kadaiForm(username) {
     const commentCodeInput = document.createElement("textarea");
     commentCodeInput.id = "comment-code";
     commentCodeInput.classList.add("comment-input", "comment-textarea");
+    commentCodeInput.placeholder = "リンクではなく、ファイルの中身をコピペしてください。";
     commentCodeGroup.append(commentCodeInput);
 
     commentBox.append(commentCodeGroup);
@@ -171,6 +173,8 @@ export function kadaiForm(username) {
     kadaiButton.onclick = () => {
         if (username !== null) {
             handleKadai(username);
+        } else {
+            alert("課題投稿にはログインが必要です");
         }
     }
 

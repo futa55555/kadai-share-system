@@ -74,6 +74,7 @@ export function commentForm(username, kadaiId) {
     const commentCodeInput = document.createElement("textarea");
     commentCodeInput.id = "comment-code";
     commentCodeInput.classList.add("comment-input");
+    commentCodeInput.placeholder = "リンクではなく、ファイルの中身をコピペしてください。";
     commentCodeGroup.append(commentCodeInput);
 
     commentForm.append(commentCodeGroup);
@@ -91,6 +92,8 @@ export function commentForm(username, kadaiId) {
     commentButton.onclick = () => {
         if (username !== null) {
             handleComment(username, kadaiId);
+        } else {
+            alert("コメント投稿にはログインが必要です");
         }
     }
 
