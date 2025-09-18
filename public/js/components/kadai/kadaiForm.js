@@ -152,7 +152,7 @@ export function kadaiForm(username) {
     const commentCodeInput = document.createElement("textarea");
     commentCodeInput.id = "comment-code";
     commentCodeInput.classList.add("comment-input", "comment-textarea");
-    commentCodeInput.placeholder = "リンクではなく、ファイルの中身をコピペしてください。";
+    commentCodeInput.placeholder = "リンクではなく、ファイルの中身をコピペしてください。\n（空欄可）";
     commentCodeGroup.append(commentCodeInput);
 
     commentBox.append(commentCodeGroup);
