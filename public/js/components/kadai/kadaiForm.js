@@ -85,7 +85,7 @@ export function kadaiForm(username) {
     const errorCodeInput = document.createElement("textarea");
     errorCodeInput.id = "error-code";
     errorCodeInput.classList.add("kadai-input", "kadai-textarea");
-    errorCodeInput.placeholder = "リンクではなく、ファイルの中身をコピペしてください。";
+    errorCodeInput.placeholder = "空欄可：リンクではなく、ファイルの中身をコピペしてください。";
     errorCodeGroup.append(errorCodeInput);
 
     kadaiForm.append(errorCodeGroup);

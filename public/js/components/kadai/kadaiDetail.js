@@ -7,21 +7,20 @@ import { kadaiResolveButton } from "./kadaiResolveButton.js";
 
 
 export function kadaiDetail(username, kadaiDetail) {
-    const card = document.createElement("div");
-    card.classList.add("kadai-detail-card");
-    card.classList.add(`${kadaiDetail.resolve_state}`);
-
     const heading = document.createElement("h2");
     heading.classList.add("kadai-detail-heading");
     heading.textContent = "課題詳細";
 
-    card.append(heading);
+
+    const card = document.createElement("div");
+    card.classList.add("kadai-detail-card");
+    card.classList.add(`${kadaiDetail.resolve_state}`);
 
 
-    const user = document.createElement("p");
-    user.classList.add("kadai-detail-user");
-    user.textContent = `${kadaiDetail.username}`;
-    card.append(user);
+    const goal = document.createElement("p");
+    goal.classList.add("kadai-detail-goal");
+    goal.textContent = `${kadaiDetail.goal}`;
+    card.append(goal);
 
 
     const mission = document.createElement("p");
@@ -30,10 +29,10 @@ export function kadaiDetail(username, kadaiDetail) {
     card.append(mission);
 
 
-    const goal = document.createElement("p");
-    goal.classList.add("kadai-detail-goal");
-    goal.textContent = `${kadaiDetail.goal}`;
-    card.append(goal);
+    const user = document.createElement("p");
+    user.classList.add("kadai-detail-user");
+    user.textContent = `${kadaiDetail.username}`;
+    card.append(user);
 
 
     const problem = document.createElement("p");

@@ -8,18 +8,6 @@ export function kadaiCard(kadai) {
     card.classList.add("kadai-card", `${kadai.resolve_state}`);
 
 
-    const user = document.createElement("p");
-    user.classList.add("kadai-user");
-    user.textContent = `${kadai.username}`;
-    card.append(user);
-
-
-    const mission = document.createElement("p");
-    mission.classList.add("kadai-mission");
-    mission.textContent = `${kadai.mission_genre}-${kadai.mission_detail}`;
-    card.append(mission);
-
-
     const goal = document.createElement("p");
     goal.classList.add("kadai-goal");
 
@@ -29,6 +17,18 @@ export function kadaiCard(kadai) {
     goal.append(link);
 
     card.append(goal);
+
+
+    const mission = document.createElement("p");
+    mission.classList.add("kadai-mission");
+    mission.textContent = `${kadai.mission_genre}-${kadai.mission_detail}`;
+    card.append(mission);
+
+
+    const user = document.createElement("p");
+    user.classList.add("kadai-user");
+    user.textContent = `${kadai.username}`;
+    card.append(user);
 
 
     const problem = document.createElement("p");
@@ -45,16 +45,18 @@ export function kadaiCard(kadai) {
 
     const createdAt = document.createElement("p");
     createdAt.classList.add("kadai-created-at");
-    createdAt.textContent = `${kadai.created_at}`;
+    createdAt.textContent = `投稿日：${kadai.created_at}`;
     card.append(createdAt);
 
 
+    const resolvedAt = document.createElement("p");
+    resolvedAt.classList.add("kadai-resolved-at");
     if (kadai.resolve_state === "resolved") {
-        const resolvedAt = document.createElement("p");
-        resolvedAt.classList.add("kadai-resolved-at");
-        resolvedAt.textContent = `${kadai.resolved_at}`;
-        card.append(resolvedAt);
+        resolvedAt.textContent = `解決日：${kadai.resolved_at}`;
+    } else {
+        resolvedAt.textContent = `未解決`;
     }
+    card.append(resolvedAt);
 
 
     return card;

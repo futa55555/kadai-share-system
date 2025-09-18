@@ -158,13 +158,6 @@ h3 {
     background-color: #f1f8e9;
 }
 
-.kadai-detail-heading {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 1em;
-    color: #2f4f2f;
-}
-
 .kadai-detail-user,
 .kadai-detail-mission {
     display: inline-block;
@@ -384,4 +377,14 @@ h3 {
 .mission-genre,
 .mission-detail {
     width: 12em;
+}
+
+
+/* =========================
+   長い文は短く表示
+   ========================= */
+.kadai-problem {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

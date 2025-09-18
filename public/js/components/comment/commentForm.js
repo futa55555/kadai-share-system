@@ -74,7 +74,7 @@ export function commentForm(username, kadaiId) {
     const commentCodeInput = document.createElement("textarea");
     commentCodeInput.id = "comment-code";
     commentCodeInput.classList.add("comment-input");
-    commentCodeInput.placeholder = "リンクではなく、ファイルの中身をコピペしてください。\n（空欄可）";
+    commentCodeInput.placeholder = "空欄可：リンクではなく、ファイルの中身をコピペしてください。";
     commentCodeGroup.append(commentCodeInput);
 
     commentForm.append(commentCodeGroup);

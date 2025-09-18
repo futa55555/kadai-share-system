@@ -14,12 +14,6 @@ export function commentCard(comment) {
     card.append(user);
 
 
-    const comment_type = document.createElement("p");
-    comment_type.classList.add("comment-comment-type");
-    comment_type.textContent = `${comment.comment_type}`;
-    card.append(comment_type);
-
-
     const content = document.createElement("p");
     content.classList.add("comment-content");
     content.textContent = `${comment.content}`;

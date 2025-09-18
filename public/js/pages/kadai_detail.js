@@ -69,7 +69,7 @@ async function init() {
     await renderInitial(username);
 
     if (username === null) {
-        alert("課題投稿にはログインが必要です");
+        alert("コメント投稿にはログインが必要です");
     }
 }
 
