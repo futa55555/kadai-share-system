@@ -319,6 +319,12 @@ h3 {
     outline: none;
 }
 
+.kadai-form-button,
+.comment-form-button {
+    display: flex;
+    justify-content: center;
+}
+
 /* =========================
    ヘッダー
    ========================= */
