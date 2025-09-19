@@ -6,7 +6,9 @@
 import { getSession } from "../clients/auth/getSession.js";
 import { getKadaiDetail } from "../clients/kadai/getKadaiDetail.js";
 import { getCommentList } from "../clients/comment/getCommentList.js";
-import { layout } from "../components/common/layout.js";
+import { title } from "../components/common/title.js";
+import { headerButton } from "../components/auth/headerButton.js";
+import { headerMessage } from "../components/auth/headerMessage.js";
 import { kadaiDetail } from "../components/kadai/kadaiDetail.js";
 import { commentList } from "../components/comment/commentList.js";
 import { commentForm } from "../components/comment/commentForm.js";
@@ -16,7 +18,9 @@ async function renderInitial(username) {
     const params = new URLSearchParams(window.location.search);
     const kadaiId = params.get("kadai_id");
 
-    layout(username);
+    document.body.append(title());
+    document.body.append(headerButton(username));
+    document.body.append(headerMessage(username));
 
     const kadaiDetailContainer = document.createElement("div");
     kadaiDetailContainer.id = "kadai-detail-container";

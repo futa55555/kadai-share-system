@@ -9,7 +9,7 @@
 
 export async function logout() {
     try {
-        const res = await fetch("../../api/auth/logout.php", {
+        const res = await fetch("../api/auth/logout.php", {
             method: "POST"
         });
         const json = await res.json();

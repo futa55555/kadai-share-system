@@ -12,7 +12,7 @@ import { renderKadaiDetail } from "../../pages/kadai_detail.js";
 
 export async function resolveKadai(username, kadaiId) {
     try {
-        const res = await fetch("../../api/kadai/resolve_kadai.php", {
+        const res = await fetch("../api/kadai/resolve_kadai.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

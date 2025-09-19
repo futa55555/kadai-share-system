@@ -1,7 +1,7 @@
 <?php
 
 /**
- * File: api/auth/logout.php
+ * File: public/api/auth/logout.php
  * Description: ログアウトの処理API
  *
  * @param none なし
@@ -9,7 +9,7 @@
  * @return JSON []
  */
 
-require '../../includes/response.php';
+require '../../../includes/response.php';
 
 
 try {

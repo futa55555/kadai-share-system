@@ -9,7 +9,7 @@
 
 export async function getUserList() {
     try {
-        const res = await fetch("../../api/user/get_user_list.php", {
+        const res = await fetch("../api/user/get_user_list.php", {
             method: "GET"
         });
         const json = await res.json();

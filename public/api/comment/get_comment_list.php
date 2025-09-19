@@ -1,7 +1,7 @@
 <?php
 
 /**
- * File: api/comment/get_comment_list.php
+ * File: public/api/comment/get_comment_list.php
  * Description: コメント一覧の取得API
  *
  * @param int kadai_id 課題ID
@@ -9,9 +9,9 @@
  * @return JSON [comment]
  */
 
-require '../../includes/db.php';
-require '../../includes/response.php';
-require '../../models/Comment.php';
+require '../../../includes/db.php';
+require '../../../includes/response.php';
+require '../../../models/Comment.php';
 
 
 try {

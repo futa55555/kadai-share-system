@@ -1,7 +1,7 @@
 <?php
 
 /**
- * File: api/kadai/get_kadai_detail.php
+ * File: public/api/kadai/get_kadai_detail.php
  * Description: 課題詳細の取得API
  *
  * @param int kadai_id 課題ID
@@ -9,9 +9,9 @@
  * @return JSON kadai
  */
 
-require '../../includes/db.php';
-require '../../includes/response.php';
-require '../../models/Kadai.php';
+require '../../../includes/db.php';
+require '../../../includes/response.php';
+require '../../../models/Kadai.php';
 
 
 try {

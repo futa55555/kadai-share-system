@@ -9,7 +9,7 @@
 
 export async function getLatestKadaiId(username) {
     try {
-        const res = await fetch("../../api/kadai/get_latest_kadai_id.php", {
+        const res = await fetch("../api/kadai/get_latest_kadai_id.php", {
             method: "GET",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

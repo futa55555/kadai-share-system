@@ -5,14 +5,14 @@
 
 import { getSession } from "../clients/auth/getSession.js";
 import { getUserList } from "../clients/user/getUserList.js";
-import { layout } from "../components/common/layout.js";
+import { title } from "../components/common/title.js";
 import { createAccount } from "../components/auth/createAccount.js";
 import { userList } from "../components/user/userList.js";
 import { signupForm } from "../components/auth/signupForm.js";
 
 
 async function renderInitial(username) {
-    layout(username);
+    document.body.append(title());
     document.body.append(createAccount("login"));
 
     document.body.append(signupForm(username));

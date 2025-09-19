@@ -5,14 +5,16 @@
 
 import { getSession } from "../clients/auth/getSession.js";
 import { getKadaiList } from "../clients/kadai/getKadaiList.js";
-import { layout } from "../components/common/layout.js";
+import { title } from "../components/common/title.js";
+import { headerButton } from "../components/auth/headerButton.js";
 import { headerMessage } from "../components/auth/headerMessage.js";
 import { kadaiPostButton } from "../components/kadai/kadaiPostButton.js";
 import { kadaiList } from "../components/kadai/kadaiList.js";
 
 
 async function renderInitial(username) {
-    layout(username);
+    document.body.append(title());
+    document.body.append(headerButton(username));
     document.body.append(headerMessage(username));
 
     document.body.append(kadaiPostButton());

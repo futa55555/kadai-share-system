@@ -1,7 +1,7 @@
 <?php
 
 /**
- * File: api/user/get_user_list.php
+ * File: public/api/user/get_user_list.php
  * Description: ユーザー一覧の取得API
  *
  * @param none なし
@@ -9,9 +9,9 @@
  * @return JSON [user]
  */
 
-require '../../includes/db.php';
-require '../../includes/response.php';
-require '../../models/User.php';
+require '../../../includes/db.php';
+require '../../../includes/response.php';
+require '../../../models/User.php';
 
 
 try {

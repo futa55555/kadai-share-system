@@ -1,7 +1,7 @@
 <?php
 
 /**
- * File: api/auth/login.php
+ * File: public/api/auth/login.php
  * Description: ログインの処理API
  *
  * @param string username ユーザー名
@@ -10,9 +10,9 @@
  * @return JSON []
  */
 
-require '../../includes/db.php';
-require '../../includes/response.php';
-require '../../models/User.php';
+require '../../../includes/db.php';
+require '../../../includes/response.php';
+require '../../../models/User.php';
 
 
 try {
@@ -21,9 +21,9 @@ try {
     $input_username = $data["username"];
     $input_password = $data["password"];
 
-    if ($input_username === null) {
+    if ($input_username === null || $input_username === "") {
         jsonError("Enter username");
-    } elseif ($input_password === null) {
+    } elseif ($input_password === null || $input_password === "") {
         jsonError("Enter password");
     } else {
         $db_password = User::getPasswordByUsername(

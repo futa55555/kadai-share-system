@@ -1,7 +1,7 @@
 <?php
 
 /**
- * File: api/comment/post_comment.php
+ * File: public/api/comment/post_comment.php
  * Description: コメント投稿の処理API
  *
  * @param string username ユーザー名
@@ -13,9 +13,9 @@
  * @return JSON []
  */
 
-require '../../includes/db.php';
-require '../../includes/response.php';
-require '../../models/Comment.php';
+require '../../../includes/db.php';
+require '../../../includes/response.php';
+require '../../../models/Comment.php';
 
 
 try {

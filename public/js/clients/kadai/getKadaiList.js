@@ -9,7 +9,7 @@
 
 export async function getKadaiList() {
     try {
-        const res = await fetch("../../api/kadai/get_kadai_list.php", {
+        const res = await fetch("../api/kadai/get_kadai_list.php", {
             method: "GET"
         });
         const json = await res.json();

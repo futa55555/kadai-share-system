@@ -1,7 +1,7 @@
 <?php
 
 /**
- * File: api/auth/signup.php
+ * File: public/api/auth/signup.php
  * Description: サインアップの処理API
  *
  * @param string username ユーザー名
@@ -10,9 +10,9 @@
  * @return JSON []
  */
 
-require '../../includes/db.php';
-require '../../includes/response.php';
-require '../../models/User.php';
+require '../../../includes/db.php';
+require '../../../includes/response.php';
+require '../../../models/User.php';
 
 
 try {
@@ -21,13 +21,13 @@ try {
     $input_username = $data["username"] ?? null;
     $input_password = $data["password"] ?? null;
 
-    if ($input_username === null) {
+    if ($input_username === null || $input_username === "") {
         jsonError("Enter username");
     } else {
         $db_password = User::getPasswordByUsername($pdo, $input_username);
 
-        if ($db_password === "") {
-            if ($input_password === null) {
+        if ($db_password === null) {
+            if ($input_password === null || $input_password === "") {
                 jsonError("Enter password");
             } else {
                 $success = User::registerUser($pdo, $input_username, $input_password);

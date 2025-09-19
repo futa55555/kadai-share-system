@@ -5,7 +5,7 @@
 
 export async function getFileLine(type, filename) {
     try {
-        const res = await fetch(`../../api/file/get_file_line.php?type=${type}&filename=${filename}`, {
+        const res = await fetch(`../api/file/get_file_line.php?type=${type}&filename=${filename}`, {
             method: "GET"
         });
         const json = await res.json();

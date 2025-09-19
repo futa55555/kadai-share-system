@@ -38,7 +38,15 @@ class User
                 "username" => $username
             ]);
 
-            return $stmt->fetchColumn();
+            $res = $stmt->fetchColumn();
+            if ($res === null) {
+                error_log("Password not found");
+                return null;
+            } elseif ($res === false) {
+                return null;
+            } else {
+                return $res;
+            }
         } catch (PDOException $e) {
             error_log("DB Error in getPasswordByUsername: " . $e->getMessage());
 

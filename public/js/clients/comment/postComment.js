@@ -19,7 +19,7 @@ export async function postComment(
     commentCode
 ) {
     try {
-        const res = await fetch("../../api/comment/post_comment.php", {
+        const res = await fetch("../api/comment/post_comment.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

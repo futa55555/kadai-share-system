@@ -9,7 +9,7 @@
 
 export async function getSession() {
     try {
-        const res = await fetch("../../api/auth/get_session.php", {
+        const res = await fetch("../api/auth/get_session.php", {
             method: "GET"
         });
         const json = await res.json();

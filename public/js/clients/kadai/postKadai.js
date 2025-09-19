@@ -29,7 +29,7 @@ export async function postKadai(
     commentCode
 ) {
     try {
-        const res = await fetch("../../api/kadai/post_kadai.php", {
+        const res = await fetch("../api/kadai/post_kadai.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

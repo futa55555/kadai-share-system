@@ -13,7 +13,7 @@ import { login } from "./login.js";
 
 export async function signup(username, password) {
     try {
-        const res = await fetch("../../api/auth/signup.php", {
+        const res = await fetch("../api/auth/signup.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -28,6 +28,7 @@ export async function signup(username, password) {
             login(username, password);
         } else {
             console.error(`Failed to sign up: ${json.message}`);
+            alert(`Failed to sign up: ${json.message}`);
         }
     } catch (err) {
         console.error(`Error: ${err}`);

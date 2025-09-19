@@ -1,11 +1,11 @@
 <?php
 
 /**
- * File: api/file/get_file_line.php
+ * File: public/api/file/get_file_line.php
  * Description: ファイルの中身の取得API
  */
 
-require '../../includes/response.php';
+require '../../../includes/response.php';
 
 
 try {
@@ -17,7 +17,7 @@ try {
     } elseif ($filename === null) {
         jsonError("Filename is not specified");
     } else {
-        $baseDir = '../../uploads';
+        $baseDir = '../../../uploads';
 
         if ($type === "kadai" or $type === "comment") {
             $subdir = $type . "s";
@@ -27,8 +27,10 @@ try {
 
         $filePath = $baseDir . '/' . $subdir . '/' . basename($filename);
 
+        error_log("DEBUG: Looking for file at " . realpath($filePath));
+
         if (strpos($filePath, $baseDir) !== 0 || !is_file($filePath)) {
-            jsonError("File does not exist");
+            jsonError("File does not exist. Checked path: " . $filePath . __DIR__);
         }
 
         $lines = file($filePath, FILE_IGNORE_NEW_LINES);

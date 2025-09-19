@@ -10,7 +10,7 @@
 
 export async function login(username, password) {
     try {
-        const res = await fetch("../../api/auth/login.php", {
+        const res = await fetch("../api/auth/login.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -25,6 +25,7 @@ export async function login(username, password) {
             window.location.href = "./index.html";
         } else {
             console.error(`Failed to log in: ${json.message}`);
+            alert(`Failed to log in: ${json.message}`);
         }
     } catch (err) {
         console.error(`Error: ${err}`);

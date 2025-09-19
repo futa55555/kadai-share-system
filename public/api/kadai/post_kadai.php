@@ -1,7 +1,7 @@
 <?php
 
 /**
- * File: api/kadai/post_kadai.php
+ * File: public/api/kadai/post_kadai.php
  * Description: 課題投稿の処理API
  *
  * @param string username ユーザー名
@@ -15,9 +15,9 @@
  * @return JSON []
  */
 
-require '../../includes/db.php';
-require '../../includes/response.php';
-require '../../models/Kadai.php';
+require '../../../includes/db.php';
+require '../../../includes/response.php';
+require '../../../models/Kadai.php';
 
 
 try {

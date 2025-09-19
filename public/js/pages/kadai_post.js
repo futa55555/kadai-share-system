@@ -4,14 +4,16 @@
  */
 
 import { getSession } from "../clients/auth/getSession.js";
-import { layout } from "../components/common/layout.js";
+import { title } from "../components/common/title.js";
+import { headerButton } from "../components/auth/headerButton.js";
 import { headerMessage } from "../components/auth/headerMessage.js";
 import { kadaiForm } from "../components/kadai/kadaiForm.js";
 import { dynamicKadaiForm } from "../services/kadai/dynamicKadaiForm.js";
 
 
 function renderInitial(username) {
-    layout(username);
+    document.body.append(title());
+    document.body.append(headerButton(username));
     document.body.append(headerMessage(username));
 
     document.body.append(kadaiForm(username));

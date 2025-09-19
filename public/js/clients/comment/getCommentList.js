@@ -9,7 +9,7 @@
 
 export async function getCommentList(kadaiId) {
     try {
-        const res = await fetch(`../../api/comment/get_comment_list.php?kadai_id=${kadaiId}`, {
+        const res = await fetch(`../api/comment/get_comment_list.php?kadai_id=${kadaiId}`, {
             method: "GET"
         });
         const json = await res.json();

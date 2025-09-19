@@ -1,7 +1,7 @@
 <?php
 
 /**
- * File: api/auth/get_session.php
+ * File: public/api/auth/get_session.php
  * Description: ログインセッションの取得API
  *
  * @param none なし
@@ -9,8 +9,8 @@
  * @return JSON []
  */
 
-require '../../includes/db.php';
-require '../../includes/response.php';
+require '../../../includes/db.php';
+require '../../../includes/response.php';
 
 try {
     session_start();
