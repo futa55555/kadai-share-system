@@ -17,6 +17,18 @@ export function kadaiDetail(username, kadaiDetail) {
     card.classList.add(`${kadaiDetail.resolve_state}`);
 
 
+    const resolveState = document.createElement("p");
+    resolveState.classList.add("kadai-detail-resolveState");
+
+    if (kadaiDetail.resolve_state === "unresolved") {
+        resolveState.textContent = "未解決";
+    } else {
+        resolveState.textContent = "解決済み";
+    }
+
+    card.append(resolveState);
+
+
     const goal = document.createElement("p");
     goal.classList.add("kadai-detail-goal");
     goal.textContent = `${kadaiDetail.goal}`;
@@ -55,22 +67,16 @@ export function kadaiDetail(username, kadaiDetail) {
     }
 
 
-    const resolveState = document.createElement("p");
-    resolveState.classList.add("kadai-detail-resolveState");
-    resolveState.textContent = `${kadaiDetail.resolve_state}`;
-    card.append(resolveState);
-
-
     const createdAt = document.createElement("p");
     createdAt.classList.add("kadai-detail-createdAt");
-    createdAt.textContent = `${kadaiDetail.created_at}`;
+    createdAt.textContent = `投稿日：${kadaiDetail.created_at}`;
     card.append(createdAt);
 
 
     if (kadaiDetail.resolve_state === "resolved") {
         const resolvedAt = document.createElement("p");
         resolvedAt.classList.add("kadai-detail-resolvedAt");
-        resolvedAt.textContent = `${kadaiDetail.resolved_at}`;
+        resolvedAt.textContent = `解決日：${kadaiDetail.resolved_at}`;
         card.append(resolvedAt);
     } else {
         if (username === kadaiDetail.username) {
