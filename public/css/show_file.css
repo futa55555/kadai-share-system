@@ -1,8 +1,17 @@
+/* =========================
+   コード表示
+   ========================= */
 .code {
     font-family: monospace;
-    background: #f8f8f8;
+    background: #fff;
+    /* コード部分は白 */
     padding: 10px;
     border: 1px solid #ccc;
+    border-radius: 8px;
+    position: relative;
+    /* コピーボタンを配置するため */
+    text-align: left;
+    overflow-x: auto;
 }
 
 .line {
@@ -14,13 +23,37 @@
     width: 40px;
     text-align: right;
     margin-right: 8px;
-    color: #888;
+    color: #555;
     user-select: none;
-    /* コピー時に番号を除外 */
+    background: #f1f8e9;
+    /* 淡い黄緑 */
+    border-right: 1px solid #ddd;
+    padding-right: 6px;
 }
 
 .text {
     white-space: pre;
-    /* ←ここ重要 */
     flex: 1;
+    background: #fff;
+}
+
+/* コピー用ボタン */
+.copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 0.4em 0.8em;
+    font-size: 0.85rem;
+    border: none;
+    border-radius: 6px;
+    background: #8bc34a;
+    /* 共通の黄緑 */
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.copy-btn:hover {
+    background: #7cb342;
+    transform: translateY(-2px);
 }

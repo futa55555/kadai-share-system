@@ -38,7 +38,7 @@ try {
     } else {
         $comment_filename = "";
         if ($comment_code !== "") {
-            $dir = __DIR__ . "/../../uploads/comments/";
+            $dir = __DIR__ . "/../../../uploads/comments/";
             $comment_filename = $username . "-comment-" . date("dHis") . ".txt";
             $comment_file = $dir . $comment_filename;
 

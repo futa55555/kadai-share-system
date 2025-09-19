@@ -49,7 +49,7 @@ try {
 
         $error_filename = "";
         if ($error_code !== "") {
-            $dir = __DIR__ . "/../../uploads/kadais/";
+            $dir = __DIR__ . "/../../../uploads/kadais/";
             $error_filename = $username . "-kadai-" . date("dHis") . ".txt";
             $error_file = $dir . $error_filename;
 

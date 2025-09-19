@@ -3,12 +3,25 @@
  * Description: ファイルの中身の作成関数
  */
 
+import { copyCode } from "../../services/file/copyCode.js";
+
+
 export function fileLine(lines) {
     const list = document.createElement("div");
     list.classList.add("file-line");
 
+
+    const copyButton = document.createElement("button");
+    copyButton.classList.add("copy-button");
+    copyButton.textContent = "コピー"
+    copyButton.onclick = () => {
+        copyCode(copyButton);
+    }
+    list.append(copyButton);
+
+
     lines.forEach((line, i) => {
-        const el = document.createElement("p");
+        const el = document.createElement("div");
         el.classList.add("line");
 
         const num = document.createElement("span");
