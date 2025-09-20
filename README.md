@@ -26,7 +26,7 @@
 - **バックエンド**: PHP 8.3.25
 - **データベース**: MySQL 8.0.42
 - **フロントエンド**: HTML / CSS / JavaScript
-- **環境**: ローカル環境（VSCode）
+- **環境**: VSCode, PHP 内蔵サーバー (または XAMPP/MAMP)
 
 ---
 
@@ -87,7 +87,7 @@ kadai-share-system/
 
 5. **ブラウザでアクセス**
    ```
-   http://localhost:8000/index.html
+   http://localhost:8000/pages/index.html
    ```
 
 ---
@@ -112,7 +112,7 @@ kadai-share-system/
 - **名前**: Futa Yamakawa (山川楓太)
 - **所属**: 東京大学大学院 工学系研究科 原子力国際専攻
 - **役割**: 企画 / 設計 / 実装を全て個人で担当
-- **目的**: 就職活動におけるポートフォリオ、および学習記録
+- **目的**: チーム学習のサポート、およびWebアプリ開発の経験向上
 
 ---
 
