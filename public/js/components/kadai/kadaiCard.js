@@ -8,6 +8,16 @@ export function kadaiCard(kadai) {
     card.classList.add("kadai-card", `${kadai.resolve_state}`);
 
 
+    const resolveState = document.createElement("p");
+    resolveState.classList.add("kadai-resolve-state");
+    if (kadai.resolve_state === "unresolved") {
+        resolveState.textContent = "未解決";
+    } else {
+        resolveState.textContent = "解決済み";
+    }
+    card.append(resolveState);
+
+
     const goal = document.createElement("p");
     goal.classList.add("kadai-goal");
 
@@ -37,24 +47,16 @@ export function kadaiCard(kadai) {
     card.append(problem);
 
 
-    const resolveState = document.createElement("p");
-    resolveState.classList.add("kadai-resolve-state");
-    resolveState.textContent = `${kadai.resolve_state}`;
-    card.append(resolveState);
-
-
     const createdAt = document.createElement("p");
     createdAt.classList.add("kadai-created-at");
-    createdAt.textContent = `投稿日：${kadai.created_at}`;
+    createdAt.textContent = `投稿日時：${kadai.created_at}`;
     card.append(createdAt);
 
 
     const resolvedAt = document.createElement("p");
     resolvedAt.classList.add("kadai-resolved-at");
     if (kadai.resolve_state === "resolved") {
-        resolvedAt.textContent = `解決日：${kadai.resolved_at}`;
-    } else {
-        resolvedAt.textContent = `未解決`;
+        resolvedAt.textContent = `解決日時：${kadai.resolved_at}`;
     }
     card.append(resolvedAt);
 

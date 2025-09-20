@@ -69,14 +69,14 @@ export function kadaiDetail(username, kadaiDetail) {
 
     const createdAt = document.createElement("p");
     createdAt.classList.add("kadai-detail-createdAt");
-    createdAt.textContent = `投稿日：${kadaiDetail.created_at}`;
+    createdAt.textContent = `投稿日時：${kadaiDetail.created_at}`;
     card.append(createdAt);
 
 
     if (kadaiDetail.resolve_state === "resolved") {
         const resolvedAt = document.createElement("p");
         resolvedAt.classList.add("kadai-detail-resolvedAt");
-        resolvedAt.textContent = `解決日：${kadaiDetail.resolved_at}`;
+        resolvedAt.textContent = `解決日時：${kadaiDetail.resolved_at}`;
         card.append(resolvedAt);
     } else {
         if (username === kadaiDetail.username) {

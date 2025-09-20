@@ -34,10 +34,11 @@ export async function postComment(
 
         if (json.status === "success") {
             console.log("Posted comment successfully");
+            window.location.href = `./kadai_detail.html?kadai_id=${kadaiId}`;
         } else {
             console.error(`Failed to post comment: ${json.message}`);
+            alert(`Failed to post comment: ${json.message}`);
         }
-        window.location.href = `./kadai_detail.html?kadai_id=${kadaiId}`;
     } catch (err) {
         console.error(`Error: ${err}`);
     }

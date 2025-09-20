@@ -31,17 +31,17 @@ try {
     $error_code = $data["error_code"];
     $resolve_state = $data["resolve_state"] ?? null;
 
-    if ($username === null) {
+    if ($username === null || $username === "") {
         jsonError("Enter username");
-    } elseif ($mission_genre === null) {
+    } elseif ($mission_genre === null || $mission_genre === "") {
         jsonError("Select mission genre");
-    } elseif ($mission_detail === null) {
+    } elseif ($mission_detail === null || $mission_detail === "") {
         jsonError("Select mission detail");
-    } elseif ($goal === null) {
+    } elseif ($goal === null || $goal === "") {
         jsonError("Enter goal");
-    } elseif ($problem === null) {
+    } elseif ($problem === null || $problem === "") {
         jsonError("Enter problem");
-    } elseif ($resolve_state === null) {
+    } elseif ($resolve_state === null || $resolve_state === "") {
         jsonError("Select resolve state");
     } else {
         date_default_timezone_set('Asia/Tokyo');

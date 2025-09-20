@@ -61,6 +61,7 @@ export async function postKadai(
             }
         } else {
             console.error(`Failed to post kadai: ${json.message}`);
+            alert(`Failed to post kadai: ${json.message}`);
         }
     } catch (err) {
         console.error(`Error: ${err}`);
