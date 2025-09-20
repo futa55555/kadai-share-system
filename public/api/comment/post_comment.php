@@ -27,13 +27,13 @@ try {
     $content = $data["content"] ?? null;
     $comment_code = $data["comment_code"];
 
-    if ($username === null) {
+    if ($username === null || $username === "") {
         jsonError("Username is not specified");
-    } elseif ($kadai_id === null) {
+    } elseif ($kadai_id === null || $kadai_id === "") {
         jsonError("Kadai id is not specified");
-    } elseif ($comment_type === null) {
+    } elseif ($comment_type === null || $comment_type === "") {
         jsonError("Enter comment type");
-    } elseif ($content === null) {
+    } elseif ($content === null || $content === "") {
         jsonError("Enter content");
     } else {
         $comment_filename = "";
