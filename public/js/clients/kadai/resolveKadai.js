@@ -6,10 +6,7 @@
  *
  * @return {none} なし
  */
-
 import { renderKadaiDetail } from "../../pages/kadai_detail.js";
-
-
 export async function resolveKadai(username, kadaiId) {
     try {
         const res = await fetch("../api/kadai/resolve_kadai.php", {
@@ -21,14 +18,16 @@ export async function resolveKadai(username, kadaiId) {
             })
         });
         const json = await res.json();
-
         if (json.status === "success") {
             console.log("Update resolve state successfully");
             renderKadaiDetail(json.data.username, json.data.kadai_id);
-        } else {
+        }
+        else {
             console.error(`Failed to update resolve state: ${json.message}`);
         }
-    } catch (err) {
+    }
+    catch (err) {
         console.error(`Error: ${err}`);
     }
 }
+//# sourceMappingURL=resolveKadai.js.map

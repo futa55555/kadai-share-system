@@ -7,10 +7,7 @@
  *
  * @return {none} 成功したらページ遷移
  */
-
 import { login } from "./login.js";
-
-
 export async function signup(username, password) {
     try {
         const res = await fetch("../api/auth/signup.php", {
@@ -22,15 +19,17 @@ export async function signup(username, password) {
             })
         });
         const json = await res.json();
-
         if (json.status === "success") {
             console.log("Signed up successfully");
             login(username, password);
-        } else {
+        }
+        else {
             console.error(`Failed to sign up: ${json.message}`);
             alert(`Failed to sign up: ${json.message}`);
         }
-    } catch (err) {
+    }
+    catch (err) {
         console.error(`Error: ${err}`);
     }
 }
+//# sourceMappingURL=signup.js.map

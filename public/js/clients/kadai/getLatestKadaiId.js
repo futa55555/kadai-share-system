@@ -6,7 +6,6 @@
  *
  * @param {Promise<Object[]>} 課題一覧
  */
-
 export async function getLatestKadaiId(username) {
     try {
         const res = await fetch("../api/kadai/get_latest_kadai_id.php", {
@@ -17,14 +16,16 @@ export async function getLatestKadaiId(username) {
             })
         });
         const json = await res.json();
-
         if (json.status === "success") {
             alert("Got latest kadai id successfully");
             return json.data;
-        } else {
+        }
+        else {
             console.error(`Failed to get latest kadai id: ${json.message}`);
         }
-    } catch (err) {
+    }
+    catch (err) {
         console.error(`Error: ${err}`);
     }
 }
+//# sourceMappingURL=getLatestKadaiId.js.map

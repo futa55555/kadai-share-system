@@ -1,0 +1,27 @@
+{
+  "name": "kadai",
+  "version": "1.0.0",
+  "description": "チーム学習で発生する「課題やエラーを共有し、解決を助け合う」ための Web アプリケーションです。",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && cp -r dist/* public/js/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/futa55555/problem-share-system.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/futa55555/problem-share-system/issues"
+  },
+  "homepage": "https://github.com/futa55555/problem-share-system#readme",
+  "dependencies": {
+    "typescript": "^5.9.2"
+  }
+}

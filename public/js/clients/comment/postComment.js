@@ -10,14 +10,7 @@
  *
  * @return {none} なし
  */
-
-export async function postComment(
-    username,
-    kadaiId,
-    commentType,
-    content,
-    commentCode
-) {
+export async function postComment(username, kadaiId, commentType, content, commentCode) {
     try {
         const res = await fetch("../api/comment/post_comment.php", {
             method: "POST",
@@ -31,15 +24,17 @@ export async function postComment(
             })
         });
         const json = await res.json();
-
         if (json.status === "success") {
             console.log("Posted comment successfully");
             window.location.href = `./kadai_detail.html?kadai_id=${kadaiId}`;
-        } else {
+        }
+        else {
             console.error(`Failed to post comment: ${json.message}`);
             alert(`Failed to post comment: ${json.message}`);
         }
-    } catch (err) {
+    }
+    catch (err) {
         console.error(`Error: ${err}`);
     }
 }
+//# sourceMappingURL=postComment.js.map

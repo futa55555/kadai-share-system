@@ -6,6 +6,8 @@ uploads/
 
 .vscode/
 
+dist/
+
 # ローカルテスト用
 init_sample.php
 

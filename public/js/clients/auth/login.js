@@ -7,7 +7,6 @@
  *
  * @return {none} 成功したらページ遷移
  */
-
 export async function login(username, password) {
     try {
         const res = await fetch("../api/auth/login.php", {
@@ -19,15 +18,17 @@ export async function login(username, password) {
             })
         });
         const json = await res.json();
-
         if (json.status === "success") {
             console.log("Logged in successfully");
             window.location.href = "./index.html";
-        } else {
+        }
+        else {
             console.error(`Failed to log in: ${json.message}`);
             alert(`Failed to log in: ${json.message}`);
         }
-    } catch (err) {
+    }
+    catch (err) {
         console.error(`Error: ${err}`);
     }
 }
+//# sourceMappingURL=login.js.map

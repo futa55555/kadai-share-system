@@ -6,21 +6,22 @@
  *
  * @return {Promise<Object>} 課題詳細
  */
-
 export async function getKadaiDetail(kadaiId) {
     try {
         const res = await fetch(`../api/kadai/get_kadai_detail.php?kadai_id=${kadaiId}`, {
             method: "GET"
         });
         const json = await res.json();
-
         if (json.status === "success") {
             console.log("Got kadai detail successfully");
             return json.data;
-        } else {
+        }
+        else {
             console.error(`Failed to get kadai detail: ${json.message}`);
         }
-    } catch (err) {
+    }
+    catch (err) {
         console.error(`Error: ${err}`);
     }
 }
+//# sourceMappingURL=getKadaiDetail.js.map

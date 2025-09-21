@@ -12,22 +12,9 @@
  *
  * @return {none} 成功したらページ遷移
  */
-
 import { getLatestKadaiId } from "./getLatestKadaiId.js";
 import { postComment } from "../comment/postComment.js";
-
-
-export async function postKadai(
-    username,
-    missionGenre,
-    missionDetail,
-    goal,
-    problem,
-    errorCode,
-    resolveState,
-    content,
-    commentCode
-) {
+export async function postKadai(username, missionGenre, missionDetail, goal, problem, errorCode, resolveState, content, commentCode) {
     try {
         const res = await fetch("../api/kadai/post_kadai.php", {
             method: "POST",
@@ -43,27 +30,23 @@ export async function postKadai(
             })
         });
         const json = await res.json();
-
         if (json.status === "success") {
             console.log("Posted kadai successfully");
             const kadaiId = await getLatestKadaiId(username);
-
             if (resolveState === "unresolved") {
                 window.location.href = "./index.html";
-            } else {
-                postComment(
-                    username,
-                    kadaiId,
-                    "solution",
-                    content,
-                    commentCode
-                );
             }
-        } else {
+            else {
+                postComment(username, kadaiId, "solution", content, commentCode);
+            }
+        }
+        else {
             console.error(`Failed to post kadai: ${json.message}`);
             alert(`Failed to post kadai: ${json.message}`);
         }
-    } catch (err) {
+    }
+    catch (err) {
         console.error(`Error: ${err}`);
     }
 }
+//# sourceMappingURL=postKadai.js.map
