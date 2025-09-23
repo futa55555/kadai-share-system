@@ -45,7 +45,7 @@ kadai-share-system/
 │   └─ favicon.ico         # ファビコン
 ├─ models/                 # データベース操作 (SQL実行, CRUD)
 ├─ includes/               # 汎用関数や共通処理 (DB接続, バリデーション等)
-├─ uploads/                # ユーザーがアップロードしたファイル保存先
+├─ uploads/                # ユーザーがアップロードしたファイル保存先（.gitignore 済）
 │   ├─ kadais/             # 課題投稿時のエラーファイル
 │   └─ comments/           # コメント投稿時の添付ファイル
 ├─ docs/                   # README.md 用の資料・スクリーンショット
@@ -78,6 +78,10 @@ kadai-share-system/
    $user = 'your_username';
    $password = 'your_password';
    ```
+
+4. **フォルダ作成**
+   - プロジェクト配下に uploads/ を作成
+   - uploads/kadais/ , uploads/comments/ を作成
 
 4. **サーバー起動**
    - XAMPP/MAMP または PHP 内蔵サーバーを利用
