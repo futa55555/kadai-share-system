@@ -15,7 +15,9 @@ require '../../../models/Kadai.php';
 
 
 try {
-    $kadai_list = kadai::getKadaiList($pdo);
+    $option = $_GET["filter"] ?? "";
+
+    $kadai_list = kadai::getKadaiList($pdo, $option);
 
     if ($kadai_list === null) {
         jsonError("課題一覧の取得に失敗しました");

@@ -11,7 +11,7 @@ class User
     public static function getUserList(
         PDO $pdo
     ): ?array {
-        $sql_get_user_list = "SELECT username FROM user;";
+        $sql_get_user_list = "SELECT username FROM user";
 
         try {
             $stmt = $pdo->query($sql_get_user_list);
@@ -30,7 +30,7 @@ class User
         PDO $pdo,
         string $username
     ): ?string {
-        $sql_get_password_by_username = "SELECT password_hash FROM user WHERE username = :username;";
+        $sql_get_password_by_username = "SELECT password_hash FROM user WHERE username = :username";
 
         try {
             $stmt = $pdo->prepare($sql_get_password_by_username);
@@ -62,7 +62,7 @@ class User
         string $password
     ): bool {
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
-        $sql_register_user = "INSERT INTO user (username, password_hash) VALUES (:username, :password_hash);";
+        $sql_register_user = "INSERT INTO user (username, password_hash) VALUES (:username, :password_hash)";
 
         try {
             $stmt = $pdo->prepare($sql_register_user);

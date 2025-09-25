@@ -10,15 +10,28 @@ class Comment
     // コメント一覧を取得
     public static function getCommentListByKadaiId(
         PDO $pdo,
-        int $kadai_id
+        int $kadai_id,
+        string $option
     ): ?array {
-        $sql_get_comment_list = "SELECT * FROM comment WHERE kadai_id = :kadai_id;";
+        $sql_get_comment_list = "SELECT * FROM comment WHERE kadai_id = :kadai_id";
+        $params = [];
+        $params["kadai_id"] = $kadai_id;
+
+        if ($option === "") {
+            // 何もしない
+        } elseif ($option === "empathy" || $option === "solution") {
+            $sql_get_comment_list .= " AND comment_type = :comment_type";
+            $params["comment_type"] = $option;
+        } else {
+            error_log("Filter option is invalid");
+            return null;
+        }
+
+        $sql_get_comment_list .= " ORDER BY created_at DESC";
 
         try {
             $stmt = $pdo->prepare($sql_get_comment_list);
-            $stmt->execute([
-                "kadai_id" => $kadai_id
-            ]);
+            $stmt->execute($params);
 
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {

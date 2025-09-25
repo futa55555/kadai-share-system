@@ -16,13 +16,14 @@ require '../../../models/Comment.php';
 
 try {
     $kadai_id = $_GET["kadai_id"];
+    $option = $_GET["filter"] ?? "";
 
     if ($kadai_id === null) {
         jsonError("Kadai id is not specified");
     } elseif (is_numeric($kadai_id) === false) {
         jsonError("Kadai id is invalid");
     } else {
-        $comment_list = comment::getCommentListByKadaiId($pdo, $kadai_id);
+        $comment_list = comment::getCommentListByKadaiId($pdo, $kadai_id, $option);
 
         if ($comment_list === null) {
             jsonError("Kadai id is invalid");

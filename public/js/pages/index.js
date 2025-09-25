@@ -9,6 +9,7 @@ import { title } from "../components/common/title.js";
 import { headerButton } from "../components/auth/headerButton.js";
 import { headerMessage } from "../components/auth/headerMessage.js";
 import { kadaiPostButton } from "../components/kadai/kadaiPostButton.js";
+import { kadaiFilterSelect } from "../components/kadai/kadaiFilterSelect.js";
 import { kadaiList } from "../components/kadai/kadaiList.js";
 
 
@@ -19,6 +20,10 @@ async function renderInitial(username) {
 
     document.body.append(kadaiPostButton());
 
+    const kadaiFilter = kadaiFilterSelect();
+    kadaiFilter.addEventListener("change", renderKadaiList);
+    document.body.append(kadaiFilter);
+
     const kadaiListContainer = document.createElement("div");
     kadaiListContainer.id = "kadai-list-container";
     document.body.append(kadaiListContainer);
@@ -28,7 +33,9 @@ async function renderInitial(username) {
 
 
 async function renderKadaiList() {
-    const data = await getKadaiList();
+    const kadaiFilterSelect = document.getElementById("kadai-filter-select");
+
+    const data = await getKadaiList(kadaiFilterSelect.value);
     const container = document.getElementById("kadai-list-container");
 
     container.innerHTML = "";

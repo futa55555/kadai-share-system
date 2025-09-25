@@ -9,12 +9,27 @@ class Kadai
 {
     // 課題一覧を取得
     public static function getKadaiList(
-        PDO $pdo
+        PDO $pdo,
+        string $option
     ): ?array {
-        $sql_get_kadai_list = "SELECT * FROM kadai;";
+        $sql_get_kadai_list = "SELECT * FROM kadai";
+        $params = [];
+
+        if ($option === "") {
+            // 何もしない
+        } elseif ($option === "unresolved" || $option === "resolved") {
+            $sql_get_kadai_list .= " WHERE resolve_state = :resolve_state";
+            $params["resolve_state"] = $option;
+        } else {
+            error_log("Filter option is invalid");
+            return null;
+        }
+
+        $sql_get_kadai_list .= " ORDER BY created_at DESC";
 
         try {
-            $stmt = $pdo->query($sql_get_kadai_list);
+            $stmt = $pdo->prepare($sql_get_kadai_list);
+            $stmt->execute($params);
 
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
@@ -30,7 +45,7 @@ class Kadai
         PDO $pdo,
         int $kadai_id
     ): ?array {
-        $sql_get_kadai_detail_by_id = "SELECT * FROM kadai WHERE kadai_id = :kadai_id;";
+        $sql_get_kadai_detail_by_id = "SELECT * FROM kadai WHERE kadai_id = :kadai_id";
 
         try {
             $stmt = $pdo->prepare($sql_get_kadai_detail_by_id);
@@ -52,7 +67,7 @@ class Kadai
         PDO $pdo,
         string $username
     ): ?int {
-        $sql_get_latest_kadai_id = "SELECT kadai_id FROM kadai WHERE username = :username ORDER BY kadai_id DESC;";
+        $sql_get_latest_kadai_id = "SELECT kadai_id FROM kadai WHERE username = :username ORDER BY kadai_id DESC";
 
         try {
             $stmt = $pdo->prepare($sql_get_latest_kadai_id);
@@ -106,7 +121,6 @@ class Kadai
                 :created_at,
                 :resolved_at
             )
-            ;
         SQL;
 
         try {
@@ -153,7 +167,7 @@ class Kadai
         PDO $pdo,
         int $kadai_id
     ): bool {
-        $sql_update_resolve_state = "UPDATE kadai SET resolve_state = 'resolved', resolved_at = :resolved_at WHERE kadai_id = :kadai_id;";
+        $sql_update_resolve_state = "UPDATE kadai SET resolve_state = 'resolved', resolved_at = :resolved_at WHERE kadai_id = :kadai_id";
 
         try {
             date_default_timezone_set('Asia/Tokyo');

@@ -10,6 +10,7 @@ import { title } from "../components/common/title.js";
 import { headerButton } from "../components/auth/headerButton.js";
 import { headerMessage } from "../components/auth/headerMessage.js";
 import { kadaiDetail } from "../components/kadai/kadaiDetail.js";
+import { commentFilterSelect } from "../components/comment/commentFilterSelect.js";
 import { commentList } from "../components/comment/commentList.js";
 import { commentForm } from "../components/comment/commentForm.js";
 
@@ -27,6 +28,12 @@ async function renderInitial(username) {
     document.body.append(kadaiDetailContainer);
 
     await renderKadaiDetail(username, kadaiId)
+
+    const commentFilter = commentFilterSelect();
+    commentFilter.addEventListener("change", () => {
+        renderCommentList(kadaiId);
+    });
+    document.body.append(commentFilter);
 
     const commentListContainer = document.createElement("div");
     commentListContainer.id = "comment-list-container";
@@ -53,15 +60,17 @@ export async function renderKadaiDetail(username, kadaiId) {
 
 
 async function renderCommentList(kadaiId) {
-    const commentListData = await getCommentList(kadaiId);
-    const commentListContainer = document.getElementById("comment-list-container");
+    const commentFilterSelect = document.getElementById("comment-filter-select");
 
-    commentListContainer.innerHTML = "";
+    const data = await getCommentList(kadaiId, commentFilterSelect.value);
+    const container = document.getElementById("comment-list-container");
 
-    if (commentListData !== null) {
-        commentListContainer.append(commentList(commentListData.comment_list));
+    container.innerHTML = "";
+
+    if (data !== null) {
+        container.append(commentList(data.comment_list));
     } else {
-        commentListContainer.textContent = "コメント一覧の取得に失敗しました";
+        container.textContent = "コメント一覧の取得に失敗しました";
     }
 }
 

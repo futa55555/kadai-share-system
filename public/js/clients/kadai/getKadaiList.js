@@ -7,9 +7,9 @@
  * @param {Promise<Object[]>} 課題一覧
  */
 
-export async function getKadaiList() {
+export async function getKadaiList(option) {
     try {
-        const res = await fetch("../api/kadai/get_kadai_list.php", {
+        const res = await fetch(`../api/kadai/get_kadai_list.php?filter=${option}`, {
             method: "GET"
         });
         const json = await res.json();

@@ -7,9 +7,11 @@
  * @return {Promise<Object[]>} コメント一覧
  */
 
-export async function getCommentList(kadaiId) {
+export async function getCommentList(kadaiId, option) {
     try {
-        const res = await fetch(`../api/comment/get_comment_list.php?kadai_id=${kadaiId}`, {
+        console.log(`kadai_id is ${kadaiId}, option = ${option}`);
+
+        const res = await fetch(`../api/comment/get_comment_list.php?kadai_id=${kadaiId}&filter=${option}`, {
             method: "GET"
         });
         const json = await res.json();
