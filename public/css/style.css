@@ -429,3 +429,30 @@ h3 {
     background: #f1f8e9;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
 }
+
+
+
+/* 共通のフィルターセレクト */
+.filter {
+    display: block;
+    margin: 1em auto;
+    padding: 0.5em 1em;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.filter:hover {
+    border-color: #4caf50;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.filter:focus {
+    outline: none;
+    border-color: #4caf50;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+}
